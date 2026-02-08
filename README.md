@@ -6,7 +6,7 @@ A tutorial for on-device deployment  of MNN.
 - [Cross compile config](./blog/cross-compiler.md)
 
 **2. Introduce**
-- [Introduce backend](./blog/introduce-backend.md) **[TODO]**
+- [Introduce backend](./blog/introduce-backend.md)
 - [Introduce factory pattern](./blog/introduce-factory.md) **[TODO]**
 - [Introduce core class](./blog/introduce-core-class.md) **[TODO]**
 
