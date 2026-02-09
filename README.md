@@ -8,7 +8,7 @@ A tutorial for on-device deployment  of MNN.
 **2. Introduce**
 - [Introduce backend](./blog/introduce-backend.md)
 - [Introduce factory pattern](./blog/introduce-factory.md) **[TODO]**
-- [Introduce core class](./blog/introduce-core-class.md) **[TODO]**
+- [Introduce core class](./blog/introduce-core-class.md) **[WIP]**
 
 **3. MNN-LLM**
 - [LLM config](./blog/llm-config.md) **[TODO]**

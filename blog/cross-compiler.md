@@ -3,6 +3,14 @@
 本文以[MNN](https://github.com/alibaba/MNN)框架为例 介绍交叉编译环境中的常见设置。
 
 
+- [交叉编译开发环境配置与远程调试](#交叉编译开发环境配置与远程调试)
+	- [1. ANDROID\_NDK配置](#1-android_ndk配置)
+		- [1.1 logcat](#11-logcat)
+	- [2 VSCode Clangd配置](#2-vscode-clangd配置)
+	- [3 调试](#3-调试)
+		- [3.1 服务器调试](#31-服务器调试)
+		- [3.2 远程调试（launch模式）](#32-远程调试launch模式)
+		- [3.3 远程调试（Attach模式 尝试失败）](#33-远程调试attach模式-尝试失败)
 
 ## 1. ANDROID_NDK配置
 
