@@ -511,371 +511,509 @@ adb logcat -s <Tag>:<Level> # 仅显示指定标签的日志 <Tag>日志的标�
 	# 在vscode输出中找到lldb(需要在settings.json中设置"lldb.verboseLogging": true)
 	# 正常执行命令 并且加载了部分符号表
 	# 但是调试没有正常开始
+
  	```
-	<details><summary>vscode log</summary>
-	
-		Verbose logging: on  (Use "lldb.verboseLogging" setting to change)
-		Platform: linux x64
-		Initial debug configuration: {
-		  name: 'Android LLDB Attach',
-		  type: 'lldb',
-		  request: 'attach',
-		  pid: '${input:PidAttach}',
-		  program: '${workspaceFolder}/project/android/build64/llm_demo',
-		  initCommands: [
-		    'platform select remote-android',
-		    'platform connect connect://127.0.0.1:31313',
-		    'settings set target.inherit-env false',
-		    'platform settings -w /data/local/tmp/mnn-test',
-		    'platform status',
-		    'platform process list',
-		    'settings show target.disable-stdio',
-		    'settings set target.disable-stdio true',
-		    'settings show target.disable-stdio',
-		    'settings set target.preload-symbols false'
-		  ],
-		  __configurationTarget: 6
-		}
-		Resolved debug configuration: {
-		  name: 'Android LLDB Attach',
-		  type: 'lldb',
-		  request: 'attach',
-		  pid: '9239',
-		  program: '/workspace/code/MNN/project/android/build64/llm_demo',
-		  initCommands: [
-		    'platform select remote-android',
-		    'platform connect connect://127.0.0.1:31313',
-		    'settings set target.inherit-env false',
-		    'platform settings -w /data/local/tmp/mnn-test',
-		    'platform status',
-		    'platform process list',
-		    'settings show target.disable-stdio',
-		    'settings set target.disable-stdio true',
-		    'settings show target.disable-stdio',
-		    'settings set target.preload-symbols false'
-		  ],
-		  __configurationTarget: 6,
-		  relativePathBase: '/workspace/code/MNN',
-		  _adapterSettings: {
-		    displayFormat: 'auto',
-		    showDisassembly: 'auto',
-		    dereferencePointers: true,
-		    suppressMissingSourceFiles: true,
-		    evaluationTimeout: 5,
-		    consoleMode: 'commands',
-		    sourceLanguages: null,
-		    scriptConfig: {},
-		    evaluateForHovers: true,
-		    commandCompletions: true
-		  }
-		}
-		Launching adapter
-		liblldb: 
-		lldbServer: 
-		environment: {}
-		settings: { evaluateForHovers: true, commandCompletions: true }
-		[0.10 INFO codelldb] Loaded "/root/.vscode-server/extensions/vadimcn.vscode-lldb-1.12.1/lldb/lib/liblldb.so", version="lldb version 21.1.7-codelldb"
-		[0.376 DEBUG codelldb] Connecting to 127.0.0.1:35049
-		[0.376 DEBUG codelldb] New debug session
-		[0.402 DEBUG codelldb::python] Compiling code: codelldb.interface.update_adapter_settings("""{"displayFormat":null,"showDisassembly":null,"dereferencePointers":null,"containerSummary":null,"evaluationTimeout":null,"summaryTimeout":null,"suppressMissingSourceFiles":null,"consoleMode":null,"sourceLanguages":null,"scriptConfig":null,"evaluateForHovers":true,"commandCompletions":true}""", globals())
-		[0.402 DEBUG codelldb::python] Created code object at 0x7f6fc0597110
-		[0.402 DEBUG codelldb::python] Evaluating code object at 0x7f6fc0597110
-		[0.402 DEBUG codelldb::python] Evaluation result: (void) result =
-		
-		[0.416 DEBUG codelldb::python] Dropping object at 0x7f6fc0597110
-		[0.434 DEBUG codelldb::dap_codec] --> {"command":"initialize","arguments":{"clientID":"vscode","clientName":"Visual Studio Code","adapterID":"lldb","pathFormat":"path","linesStartAt1":true,"columnsStartAt1":true,"supportsVariableType":true,"supportsVariablePaging":true,"supportsRunInTerminalRequest":true,"locale":"zh-cn","supportsProgressReporting":true,"supportsInvalidatedEvent":true,"supportsMemoryReferences":true,"supportsArgsCanBeInterpretedByShell":true,"supportsMemoryEvent":true,"supportsStartDebuggingRequest":true,"supportsANSIStyling":true},"type":"request","seq":1}
-		[0.435 DEBUG codelldb::dap_codec] <-- {"seq":1,"type":"response","request_seq":1,"success":true,"command":"initialize","body":{"exceptionBreakpointFilters":[{"default":true,"filter":"cpp_throw","label":"C++: on throw","supportsCondition":true},{"default":false,"filter":"cpp_catch","label":"C++: on catch","supportsCondition":true}],"supportTerminateDebuggee":true,"supportsCancelRequest":true,"supportsClipboardContext":true,"supportsCompletionsRequest":true,"supportsConditionalBreakpoints":true,"supportsConfigurationDoneRequest":true,"supportsDataBreakpointBytes":true,"supportsDataBreakpoints":true,"supportsDelayedStackTraceLoading":true,"supportsDisassembleRequest":true,"supportsEvaluateForHovers":true,"supportsExceptionFilterOptions":true,"supportsExceptionInfoRequest":true,"supportsFunctionBreakpoints":true,"supportsGotoTargetsRequest":true,"supportsHitConditionalBreakpoints":true,"supportsInstructionBreakpoints":true,"supportsLogPoints":true,"supportsModulesRequest":true,"supportsReadMemoryRequest":true,"supportsRestartRequest":true,"supportsSetVariable":true,"supportsStepInTargetsRequest":true,"supportsSteppingGranularity":true,"supportsWriteMemoryRequest":true}}
-		[0.479 DEBUG codelldb::dap_codec] --> {"command":"attach","arguments":{"name":"Android LLDB Attach","type":"lldb","request":"attach","pid":"9239","program":"/workspace/code/MNN/project/android/build64/llm_demo","initCommands":["platform select remote-android","platform connect connect://127.0.0.1:31313","settings set target.inherit-env false","platform settings -w /data/local/tmp/mnn-test","platform status","platform process list","settings show target.disable-stdio","settings set target.disable-stdio true","settings show target.disable-stdio","settings set target.preload-symbols false"],"__configurationTarget":6,"relativePathBase":"/workspace/code/MNN","_adapterSettings":{"displayFormat":"auto","showDisassembly":"auto","dereferencePointers":true,"suppressMissingSourceFiles":true,"evaluationTimeout":5,"consoleMode":"commands","sourceLanguages":null,"scriptConfig":{},"evaluateForHovers":true,"commandCompletions":true},"__sessionId":"d48f9fb7-6d82-457d-8328-c1b37b556795"},"type":"request","seq":2}
-		[0.479 DEBUG codelldb::python] Compiling code: codelldb.interface.update_adapter_settings("""{"displayFormat":"auto","showDisassembly":"auto","dereferencePointers":true,"containerSummary":null,"evaluationTimeout":5.0,"summaryTimeout":null,"suppressMissingSourceFiles":true,"consoleMode":"commands","sourceLanguages":null,"scriptConfig":{},"evaluateForHovers":true,"commandCompletions":true}""", globals())
-		[0.479 DEBUG codelldb::python] Created code object at 0x7f6fc0597110
-		[0.479 DEBUG codelldb::python] Evaluating code object at 0x7f6fc0597110
-		[0.479 DEBUG codelldb::python] Evaluation result: (void) result =
-		
-		[0.480 DEBUG codelldb::python] Dropping object at 0x7f6fc0597110
-		[0.480 DEBUG codelldb::dap_codec] <-- {"seq":2,"type":"event","event":"output","body":{"category":"console","output":"Console is in 'commands' mode, prefix expressions with '?'.\n"}}
-		[0.480 DEBUG codelldb::dap_codec] <-- {"seq":3,"type":"event","event":"output","body":{"category":"console","output":"Executing script: initCommands\n"}}
-		[0.480 DEBUG codelldb::debug_session] platform select remote-android -> SuccessFinishResult, Error:  Success
-		Output Message:
-		  Platform: remote-android
-		 Connected: no
-		
-		[0.480 DEBUG codelldb::dap_codec] <-- {"seq":4,"type":"event","event":"output","body":{"category":"console","output":"  Platform: remote-android\n Connected: no\n\n"}}
-		[1.37 DEBUG codelldb::debug_session] platform connect connect://127.0.0.1:31313 -> SuccessFinishResult, Error:  Success
-		Output Message:
-		  Platform: remote-android
-		    Triple: aarch64-unknown-linux-android
-		OS Version: 35 (6.6.30-android15-8-g013ec21bba94-abogki383916444-4k)
-		  Hostname: localhost
-		 Connected: yes
-		WorkingDir: /data/local/tmp/mnn-test
-		    Kernel: #1 SMP PREEMPT Tue Dec 17 23:36:49 UTC 2024
-		
-		[1.37 DEBUG codelldb::dap_codec] <-- {"seq":5,"type":"event","event":"output","body":{"category":"console","output":"  Platform: remote-android\n    Triple: aarch64-unknown-linux-android\nOS Version: 35 (6.6.30-android15-8-g013ec21bba94-abogki383916444-4k)\n  Hostname: localhost\n Connected: yes\nWorkingDir: /data/local/tmp/mnn-test\n    Kernel: #1 SMP PREEMPT Tue Dec 17 23:36:49 UTC 2024\n\n"}}
-		[1.37 DEBUG codelldb::debug_session] settings set target.inherit-env false -> SuccessFinishResult, Error:  Success
-		[1.137 DEBUG codelldb::debug_session] platform settings -w /data/local/tmp/mnn-test -> SuccessFinishNoResult, Error:  Success
-		[1.233 DEBUG codelldb::debug_session] platform status -> SuccessFinishResult, Error:  Success
-		Output Message:
-		  Platform: remote-android
-		    Triple: aarch64-unknown-linux-android
-		OS Version: 35 (6.6.30-android15-8-g013ec21bba94-abogki383916444-4k)
-		  Hostname: localhost
-		 Connected: yes
-		WorkingDir: /data/local/tmp/mnn-test
-		    Kernel: #1 SMP PREEMPT Tue Dec 17 23:36:49 UTC 2024
-		
-		[1.234 DEBUG codelldb::dap_codec] <-- {"seq":6,"type":"event","event":"output","body":{"category":"console","output":"  Platform: remote-android\n    Triple: aarch64-unknown-linux-android\nOS Version: 35 (6.6.30-android15-8-g013ec21bba94-abogki383916444-4k)\n  Hostname: localhost\n Connected: yes\nWorkingDir: /data/local/tmp/mnn-test\n    Kernel: #1 SMP PREEMPT Tue Dec 17 23:36:49 UTC 2024\n\n"}}
-		[1.947 DEBUG codelldb::debug_session] platform process list -> SuccessFinishNoResult, Error:  Success
-		Output Message:
-		6 matching processes were found on "remote-android"
-		
-		PID    PARENT USER       TRIPLE                         NAME
-		====== ====== ========== ============================== ============================
-		3264   1      shell                                     
-		9221   3264   shell      aarch64-unknown-linux-android  sh
-		9226   3264   shell      aarch64-unknown-linux-android  sh
-		9232   3264   shell      aarch64-unknown-linux-android  sh
-		9239   9226   shell      aarch64-unknown-linux-android  llm_demo
-		10599  9221   shell      aarch64-unknown-linux-android  lldb-server
-		
-		[1.947 DEBUG codelldb::debug_session] settings show target.disable-stdio -> SuccessFinishResult, Error:  Success
-		Output Message:
-		target.disable-stdio (boolean) = false
-		
-		[1.947 DEBUG codelldb::dap_codec] <-- {"seq":7,"type":"event","event":"output","body":{"category":"console","output":"6 matching processes were found on \"remote-android\"\n\nPID    PARENT USER       TRIPLE                         NAME\n====== ====== ========== ============================== ============================\n3264   1      shell                                     \n9221   3264   shell      aarch64-unknown-linux-android  sh\n9226   3264   shell      aarch64-unknown-linux-android  sh\n9232   3264   shell      aarch64-unknown-linux-android  sh\n9239   9226   shell      aarch64-unknown-linux-android  llm_demo\n10599  9221   shell      aarch64-unknown-linux-android  lldb-server\n\n"}}
-		[1.947 DEBUG codelldb::debug_session] settings set target.disable-stdio true -> SuccessFinishResult, Error:  Success
-		[1.947 DEBUG codelldb::debug_session] settings show target.disable-stdio -> SuccessFinishResult, Error:  Success
-		Output Message:
-		target.disable-stdio (boolean) = true
-		
-		[1.947 DEBUG codelldb::debug_session] settings set target.preload-symbols false -> SuccessFinishResult, Error:  Success
-		[1.947 DEBUG codelldb::dap_codec] <-- {"seq":8,"type":"event","event":"output","body":{"category":"console","output":"target.disable-stdio (boolean) = false\n\n"}}
-		[1.947 DEBUG codelldb::dap_codec] <-- {"seq":9,"type":"event","event":"output","body":{"category":"console","output":"target.disable-stdio (boolean) = true\n\n"}}
-		INFO(Python) 13:09:06 lang_support: languages: set()
-		[2.51 DEBUG codelldb::dap_codec] <-- {"seq":10,"type":"event","event":"initialized"}
-		[2.94 DEBUG codelldb::dap_codec] --> {"command":"setBreakpoints","arguments":{"source":{"name":"llm_demo.cpp","path":"/workspace/code/MNN/transformers/llm/engine/demo/llm_demo.cpp"},"lines":[197,246,265,301],"breakpoints":[{"line":197},{"line":246},{"line":265},{"line":301}],"sourceModified":false},"type":"request","seq":3}
-		[2.104 DEBUG codelldb::debug_session] Debug event: 0x55938b1e6058 Event: broadcaster = 0x55938b1cafb0 (lldb.target), type = 0x00000001 (breakpoint-changed), data = {bkpt: 1 type: breakpoint added}
-		[2.104 DEBUG codelldb::debug_session] Debug event: 0x55938bbb0cd8 Event: broadcaster = 0x55938b1cafb0 (lldb.target), type = 0x00000001 (breakpoint-changed), data = {bkpt: 2 type: breakpoint added}
-		[2.104 DEBUG codelldb::dap_codec] <-- {"seq":11,"type":"response","request_seq":3,"success":true,"command":"setBreakpoints","body":{"breakpoints":[{"id":1,"line":198,"message":"Resolved locations: 0","verified":true},{"id":2,"line":246,"message":"Resolved locations: 0","verified":true},{"id":3,"line":265,"message":"Resolved locations: 0","verified":true},{"id":4,"line":301,"message":"Resolved locations: 0","verified":true}]}}
-		[2.104 DEBUG codelldb::debug_session] Debug event: 0x55938be74b38 Event: broadcaster = 0x55938b1cafb0 (lldb.target), type = 0x00000001 (breakpoint-changed), data = {bkpt: 3 type: breakpoint added}
-		[2.104 DEBUG codelldb::debug_session] Debug event: 0x55938be759d8 Event: broadcaster = 0x55938b1cafb0 (lldb.target), type = 0x00000001 (breakpoint-changed), data = {bkpt: 4 type: breakpoint added}
-		[2.104 DEBUG codelldb::dap_codec] --> {"command":"setFunctionBreakpoints","arguments":{"breakpoints":[]},"type":"request","seq":4}
-		[2.104 DEBUG codelldb::dap_codec] --> {"command":"setInstructionBreakpoints","arguments":{"breakpoints":[]},"type":"request","seq":5}
-		[2.104 DEBUG codelldb::dap_codec] --> {"command":"setExceptionBreakpoints","arguments":{"filters":[],"filterOptions":[{"filterId":"cpp_throw"},{"filterId":"cpp_catch"}]},"type":"request","seq":6}
-		[2.104 DEBUG codelldb::dap_codec] --> {"command":"setDataBreakpoints","arguments":{"breakpoints":[]},"type":"request","seq":7}
-		[2.104 DEBUG codelldb::dap_codec] <-- {"seq":12,"type":"response","request_seq":4,"success":true,"command":"setFunctionBreakpoints","body":{"breakpoints":[]}}
-		[2.104 DEBUG codelldb::dap_codec] <-- {"seq":13,"type":"response","request_seq":5,"success":true,"command":"setInstructionBreakpoints","body":{"breakpoints":[]}}
-		[2.104 DEBUG codelldb::debug_session] Debug event: 0x55938be759d8 Event: broadcaster = 0x55938b1cafb0 (lldb.target), type = 0x00000001 (breakpoint-changed), data = {bkpt: 5 type: breakpoint added}
-		[2.104 DEBUG codelldb::debug_session] Debug event: 0x55938be74b38 Event: broadcaster = 0x55938b1cafb0 (lldb.target), type = 0x00000001 (breakpoint-changed), data = {bkpt: 6 type: breakpoint added}
-		[2.104 DEBUG codelldb::dap_codec] <-- {"seq":14,"type":"response","request_seq":6,"success":true,"command":"setExceptionBreakpoints","body":{"breakpoints":[{"id":5,"message":"Resolved locations: 0","verified":false},{"id":6,"message":"Resolved locations: 0","verified":false}]}}
-		[2.104 DEBUG codelldb::dap_codec] <-- {"seq":15,"type":"response","request_seq":7,"success":true,"command":"setDataBreakpoints","body":{"breakpoints":[]}}
-		[2.208 DEBUG codelldb::dap_codec] --> {"command":"configurationDone","type":"request","seq":8}
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/8C68F140-AAA2-F707-F730-F2EE4E510120/libandroidfw.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/47A4DF2E-C980-CA7B-EE2C-5162D1311A67/libpowermanager.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/9DF5DFA7-C0A9-BEE1-18E8-59821ACCE119/libhidlbase.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/B91287F0-90CF-9F69-4DDD-2F1A515321DD/libandroid_runtime.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/59856B9D-1F82-D3A6-C71D-66834CA846B9/libGLESv2.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F4D570AA-256C-18CF-EA9D-AE414A89DA7D/libm.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/E5A3DA1A-4375-273B-68D0-BD446CDE5B09/libPlatformProperties.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/DE46E75F-F2ED-1E2C-471D-4636BABCB461/libgralloctypes.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/59EDC081-6CC9-8412-738C-D7D9FD088A51/android.hardware.graphics.bufferqueue@2.0.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F7541D18-8FBA-9039-6D97-EC2354A99C0C/libandroid.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/B18C8A03-80E8-9331-80E2-E5D0A8F17968/libhardware.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/236EA1BC-94E0-AFD5-BC7F-F1431CE6E873/libui.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/9C5275F2-9E5F-BCAB-CA91-F471539F6C33/libharfbuzz_ng.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/49F04F9F-4BAB-7644-EBE0-CD12D5CBA422/android.media.audiopolicy-aconfig-cc.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F643E105-5895-E50E-6646-2991C8BD651A/libsensor.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/D4EFBE1C-EE05-5ADB-7BC0-6563275B325A/libactivitymanager_aidl.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F4788000-0CAD-34AE-85A3-A6D6EB47AF56/libnetd_client.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/E9F6E11C-F330-D7B5-DA0A-E574B08DE2BF/libappfuse.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/1ABE5FF0-44ED-C7D5-EDEC-7513BEFDFB08/libhwui.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/6616E752-0D49-82C8-B16F-490C2FCE7B07/libxml2.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/D7BFEF10-7332-8147-237F-DCD213DDB0F4/libEGL.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/5A4C3962-7C1C-0C27-B85E-2B07FF8406E8/android.hardware.configstore@1.0.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/5794558E-3A70-DE27-7ACE-8D96CC135A6E/libprocessgroup.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/E53513AD-07B9-A2D3-8E10-BB9640873A51/android.os.flags-aconfig-cc.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/17FB6C42-A328-8C80-F6B1-2E8DCE44BA87/android.hardware.common.fmq-V1-ndk.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/BCF22BAF-8100-0E78-7DBF-DA0634CDCAE3/libdng_sdk.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/53E0091D-25A7-8880-2D2D-3A5324F79B52-7DF4913F/libc++.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F813C105-4BF3-8946-F3DD-ACFA5A0F5D92/libaconfig_storage_read_api_cc.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/D2388CD6-B4A2-3C03-AAC6-A43F69DBE3E7/libprotobuf-cpp-lite.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F51A883E-B8A3-E395-D776-028AAFD911B2/libincfs.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/1D37DF90-6550-A769-0656-A118D5D3E48C/libtinyxml2.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/71BEA50E-B26B-2551-6A93-71624A6F6C48/libapexsupport.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/75F07E30-8942-51A2-09D9-EFD05765443E/libcutils.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/ACCECA4F-7FDF-AAB5-8CA4-D22F02EFCFA2/android.hardware.graphics.allocator@2.0.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/268C25BF-EE33-DEFE-E41F-04FA65438E3F/android.hardware.graphics.mapper@3.0.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/7249C1EE-880D-5DC5-6D20-218B90D0EE70/liblog.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/D1D3BF8F-E6FE-CD69-21AC-714B5EF42E28/libutils.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/FD865493-6014-8D9B-9146-148D898ACE8B/android.hardware.graphics.bufferqueue@1.0.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/4FC00C98-6358-5F87-0F76-2CDD96F8D6FE/android.hardware.graphics.common@1.1.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/D6FD5669-9855-0295-6CD6-3C15A6BA2463/libnativewindow.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F100ABB4-5F8D-9443-385E-41FAA8C60894/libbinder_ndk.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/10880913-0278-27E8-B7B9-E2B0073332E6/libpermission.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/E7298183-6700-D01A-9E07-A7EFE0463AB4/libgui.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/D3BDEF9F-76E0-0746-698A-FDB95AFBC4E3/android.hardware.configstore@1.1.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/65F76722-B6BA-9085-2F32-C65B2917B63B/android.media.audio.common.types-V4-cpp.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/622B1765-4662-9AB1-9F5E-C1DFBBC18E6A/av-types-aidl-cpp.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/AE1416DE-9C2C-8E2A-03B1-9B4A77B111D1/libandroid_net.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/92739A8D-5622-5793-8128-28A5C6293AF2/libminikin.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/6A5F8F94-CFE5-65DC-C001-95D7A3CA9602/libdebuggerd_client.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/FB11B3F2-0030-F996-41AD-EBC1949142B6/libsqlite.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/D33A3544-5B95-B61F-40F2-1B097B982B2E/android.hardware.configstore-utils.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/93CCDE3F-366F-7E38-3EC0-899B87F4C45F/libselinux.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/89BD714E-5DEF-C9AE-88C7-2982F3EF3AC8/libnativeloader_lazy.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/D4B2FFC5-F138-6CF1-32E1-2AB8C6DCFB37/liboplusplugin.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/3E69A5D9-5456-0A62-90D7-0565B0B436B0/libultrahdr.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/90259EF0-41B0-1885-8D40-258E8170B217/aconfig_text_flags_c_lib.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/070EE97F-074D-C13F-D642-DC3627F7CE57/libz.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/D89F718A-0F70-5B6B-21A7-444F4CB496F3/libheif.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/EEA2E831-DF57-26D5-5A9E-100BA0E291AF/libft2.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/6E0FBED8-8045-2E8A-276A-ED99974D2903/lib-platform-compat-native-api.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/7926FF37-5B46-6646-59D5-04CBC606B997/libpackagelistparser.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F05BB986-1975-74CF-310A-A7F2244D981F/android.hardware.power@1.0.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/217D4A46-760A-940D-FED2-1538F547262D/libbinder.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/B8FA905C-387B-6EC6-2B8C-29E3B0D5E1C1/android.hardware.power@1.1.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/E1E52A3B-FD01-7616-6655-977ED25478CF/android.hardware.power@1.2.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/48EDFCD7-4765-28A8-2472-D6BA77AA16C1/android.hardware.power@1.3.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/7F0888CC-ACBD-22DC-6197-E024D61DB019/com.android.media.audioclient-aconfig-cc.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/27AA0829-9412-F262-58C6-9E6226585DEA/android.hardware.graphics.common@1.0.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/D1234763-4E7A-21ED-F65D-AE44CB959CDB/libaudiomanager.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/5A118426-37D9-7B8C-323D-5ACA6BB7AA92/android.hidl.token@1.0.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/4EB1AD8B-2324-C684-BF89-FDBAA325836A/framework-permission-aidl-cpp.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/22F4901A-3743-4C39-8C4E-5F0BEA118079/effect-aidl-cpp.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/5B965CF4-265D-81F2-1F99-DA9B6B0EBF34/shared-file-region-aidl-cpp.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/68D733EC-E14A-6DDF-08A5-0C37D3EE00E8/android.hardware.camera.common@1.0.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F891BE37-E405-66BF-2B9B-8C8C5474A680/android.hardware.memtrack@1.0.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/4D0532B3-F1D1-B4FC-ED69-FC5BD7A829BC/android.hardware.memtrack-V1-ndk.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/CE04558B-0A23-351D-CADD-5E511B6B8953/libETC1.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/BC2C7F87-8C6B-0064-210F-D4977F2C66F0/libandroid_runtime_lazy.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/4B758857-1C68-D480-E403-0D92344242F7/libcgrouprc.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/A8BBDFEA-E174-30B5-7E6A-5BABCBA908B1/libbpf_bcc.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/24CF4CEC-1D73-44C8-ED75-5884E4953E22/libdatasource.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/4D599915-9EC2-D153-B954-35161286B527/libmediadrm.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/8A8683E2-3717-CC18-680C-E0EFE97EAA96/libmedia_omx.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/A96DAF57-6898-C714-C5EC-DC88B80C294B/libmedia_jni_utils.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/4E0635FF-666C-8B48-8CCF-5566C7FDBD40/libstagefright.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/EEBAA949-2A40-455A-8475-F7E9A76F87D2/libstagefright_foundation.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/3C0DB02C-271B-A2E2-CC7B-63E904E5638E/libmediandk_utils.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F1D853BA-297B-CA2A-3014-65C02F8CF647/android.hardware.drm-V1-ndk.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/D7E60A1B-02A0-A89D-5AB7-E1883A8B5067/libSurfaceFlingerProp.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/0C7C0800-AF68-65E6-4893-CE47B8AB6DA3/camera_platform_flags_c_lib.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/4E788058-CF19-E541-C41C-22663B333A4D/libunwindstack.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/3B0FA744-EEA5-F951-8170-DE832FD9F1CE/libziparchive.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/FCDD8634-77D9-C35A-04F7-E46E76ADF01C/libpcre2.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/CFB68FE0-E192-4651-97FC-C0D3F944F7A0/libmedia_codeclist.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/1EC03020-A00F-FCAD-59B4-6CDF97537D05/liboplusremotedisplay.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/CEAF7077-8476-ED6E-BBBB-10D160D6BD60/liboplusremotedisplayclient.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/1F7EED6E-4DD5-6CBB-45B6-E89615257E9D/android.hardware.drm@1.4.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/2158C75E-4988-C285-1896-357F99993475/android.hardware.media.omx@1.0.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/AC68D018-F02B-14CC-1B51-F5E83226129C/capture_state_listener-aidl-cpp.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/01DF55F6-1428-95DC-DBAA-4FE0203DE907/libaudio_aidl_conversion_common_cpp.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/63A840F8-69D6-5DFC-BD42-B430C2F559F9/libcodec2.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/75FC895D-0EDC-4A29-C95B-D983A003758F/libaudioutils.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F4EB4AAA-F8B1-F58E-6040-561179D5E38E/libmedia_omx_client.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F8CCC3F7-ABD2-6816-EE77-C2BBBC1EF11F/libnblog.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F4D585C7-43F3-C29F-70F0-60B139280236/libshmemcompat.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/BC87EF18-DF8F-7AA9-77EE-59BE3A33D4BD/libcamera_metadata.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/8D5546FC-C984-4C53-AE4D-A68376649C07/packagemanager_aidl-cpp.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/3BC123B3-2E0D-1DA2-4608-CBE1EFDFEDF3/liboplusmmdebug.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/8C6E0D1F-F75D-74B0-94BC-781C562A7092/libnativedisplay.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/52C82393-C710-2821-9339-0A5C5CE8BF91/libbpf_minimal.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F862C6CB-6B56-928F-7B24-D2A3B49ADA5E/liboplusloadframe.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/364C8677-368A-1BA8-E6F8-CBCBF5B8FF74/libjpegencoder.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/61F0425A-F9C9-47CE-4E65-7AC31E7BAAC8/android.hardware.media.bufferpool@2.0.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/9B34299E-EB2E-93CF-3C80-9A6B855ABDC5/liblzma.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/BC304671-6DBD-7AFD-44CB-44531D3F3C53/libmediadrmmetrics_lite.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/C1BED4E7-F50E-454B-3115-B12789484E9C/android.hardware.drm@1.0.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/16EE5061-D6A1-1B5D-3C3A-58B595FE99E1/android.hardware.drm@1.1.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/59C7A5B8-100F-C786-A237-534275FFF031/vendor.dolby.dvs-V1-ndk.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/D8133337-22F8-4E5C-FC7E-81580D92885D/android.system.suspend-V1-ndk.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/D0870D5B-92DD-9BD8-990C-2A6C5D189A33/android.hardware.drm@1.2.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/6576446C-95B5-8FC8-12D0-19864EAF1A6E/libcodec2_client.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/56EE6975-54BD-8AF9-256B-E8F25D7B5093/android.hardware.drm@1.3.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/773E4036-29F6-0510-7FE9-D09F3ACBFC17/mediametricsservice-aidl-cpp.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/B13CB8E9-12AE-139B-DFD0-F590ADC67617/libhidlallocatorutils.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/42F83B19-A621-BCAE-5536-880C786C936D/audiopolicy-aidl-cpp.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/8571E439-E7CC-207A-B9E8-3981166AA953/android.hidl.memory@1.0.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/C62C6178-578C-7D26-455F-B1F590F8624C/android.hardware.cas@1.0.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/94E17DA2-D20D-C000-3672-D0C4933C9BF3/libcodec2_vndk.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/470D87DF-0FBB-48DE-058A-BF31ED48D4BA/libcodec2_hal_common.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/090FF4C1-571A-EF9F-4679-C5600FF8886B/libsfplugin_ccodec.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/A11669AA-BD01-1D70-2046-55568F4BC3B6/libsfplugin_ccodec_utils.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/39D4A1F6-8339-7BE8-174D-C8C26569B3D3/libstagefright_codecbase.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/D488A480-3BB5-3EAF-655D-4B4D6793C0A9/libstagefright_omx_utils.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/5141AA36-4CA6-DEB3-0E83-899F3A211574/libhidlmemory.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/C85E596D-528C-8413-61FD-1543C6A468A4/android.hidl.allocator@1.0.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/4FDA2AC3-923D-7AFB-EA12-7D310D09CC33/android.hardware.cas.native@1.0.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/45386C91-5C0E-7873-D765-C358266F5F5B/aconfig_mediacodec_flags_c_lib.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/6CF112A3-E61A-25C9-DF8C-4B0C67589CF7/libspeexresampler.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/C7F41251-6A79-5DC6-5A07-3BF6241A7C9C/com.android.media.audio-aconfig-cc.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F9CB190B-FDC3-6AC0-2DFE-AF1A0887DDA2/libjpegdecoder.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/1FA53D37-49E7-8B23-E3B4-20BD59C68B49/libshmemutil.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/30BB277C-5D0B-993A-92A2-FB5C746FE461/libandroidicu.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F6613968-B4EC-FA82-4056-2754492D3640/android.os.flags-aconfig-cc-host.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/05E97885-D5B8-746E-8213-2727CC62D273/android.hardware.media.bufferpool2-V2-ndk.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/91696B8B-0757-00FC-B0F2-BFA26B9DCA0C/android.hardware.media.c2-V1-ndk.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/D69A31D4-3CA9-6A0F-9FF7-695A6AAF01B8/libdmabufheap.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/A608E5AE-1FC9-711B-200A-F2FB29BE6197/libbsproxy.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F7332E1E-E32D-AAD0-791F-F4D8CFC6877D/libstagefright_bufferpool@2.0.1.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/7CF0AFB8-6366-A80A-9D9A-A2350B697FBC/libstagefright_aidl_bufferpool2.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/44DB7622-A843-97FB-D032-22840478D1E4/android.hardware.media.c2@1.0.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/D471166E-5DD7-A800-8B7E-465E56DD000E/liboplusvideoboostclient.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/26B88FA8-5E98-04BD-532B-C2BA5C3E86B6/libstagefright_bufferqueue_helper.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/62F6DFE5-993D-3537-C5B0-6D67D64BFB3C/libstagefright_graphicbuffersource_aidl.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/E392C887-912B-D578-93AE-F162D3B45C0A/libstagefright_omx.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/FD199BBD-8790-6261-A65B-5208D1BD269F/libstagefright_surface_utils.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/D15566A0-561C-7926-F6FC-29385CEE8E55/libstagefright_xmlparser.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/C7A683E7-6644-0421-38F2-BA9883A3AC3A/libstagefright_framecapture_utils.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/1412FD82-5729-D5FE-9E90-E3DAB35F0785/android.hidl.memory.token@1.0.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/29E601BA-E033-65DD-3170-6DD393D601FC/libopluscfgpolicy.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/A051CC35-7764-8479-301A-98F0F8E6766D/android.hardware.media@1.0.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F595F888-ADB0-0AEE-048E-C2D74AE8DC79/android.hidl.safe_union@1.0.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/36E68CBB-F317-919C-458E-33CC44855754/libmediautils.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/3733209E-B9F5-F655-C2A7-5B82D7C640A8/libcodec2_aidl_client.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/B41BE3A5-3B4A-FC6D-DC12-E9C67A361AE2/android.hardware.media.c2@1.1.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/BCED8136-6039-1212-C20A-492C58E80466/android.hardware.media.c2@1.2.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/37E43EAB-0240-B0A8-A9F0-EF72DC2D5B17/libcodec2_hidl_client@1.0.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/B7503E25-16EE-CD1A-8742-9B5B1A01F5BB/libcodec2_hidl_client@1.1.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/DCBAF5C2-CC21-0D9D-BFCD-FDD334B0431D/libcodec2_hidl_client@1.2.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/5C9EE94B-207A-672D-08E7-48164014FB06/libstagefright_httplive.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/977C3587-F5F1-6B11-C61B-35D997D61738/libicu.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/4F4D5F18-A6BE-4344-EA17-DC9DC7411427/libicuuc.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/63DA7563-739E-6B10-0281-6046A3D1FF9D/libatlasservice.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/5BA0567C-E2DB-159D-2FBC-A7A1553C861A/libostatslog.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/44104D0C-22BC-EB23-188C-DC8D9879E00E/libinputextensionsimpl.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/2D06A995-3D42-EDC9-126A-602DEA5F176E/libdrmframeworkcommon.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/C3618A49-D5FE-BCC0-33B1-8F81144623B9/libion.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/5CE798D7-1505-31D7-04C9-931E7E821859/libskjpegencoderextimpl.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/55CC7435-9BEE-63CE-66EF-B7E49A8E25C3/vendor.oplus.hardware.urcc-V1-ndk.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/0369ED75-A4C8-871F-CAC0-CA5058B89AF4/graphicbuffersource-aidl-ndk.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/7725EFB8-4388-9F2F-AC5E-381796F1A207/libstatssocket.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/4438F18D-386D-940E-CB37-6C59BB81938B/libstatspull.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/3DACF6CB-307A-C2BD-6BC6-41B4705D805E/libaudioclientextimpl.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/8724936D-12B0-0A45-E855-DE82BD2BF9F5/vendor.oplus.hardware.performance-V1-ndk.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/2A91ADBC-2C8D-8343-B339-45A3530E3D97/libiatlasservice.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/FB393EC0-4529-BBE4-7DE1-CDC2B623642A/libimmlistservice.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/80072B39-258E-25AD-482F-BCA4E522757A/liboplusaudioDump.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/145692BC-7B48-FA7D-4DEE-9F3647C9F400/libvibrator.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/86AFE71B-BEDF-86F9-96DD-27031077E951/libmmlistparser.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/2472CDC5-FA7D-3D3C-FBF6-4F6F6CB161FA/liboplusavenhancements.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/7401D122-F709-E469-F346-2FA68B905BB8/libavenhancements.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/0B7AB220-8D7B-1F08-5CC8-36C34FBDA133/liboplusstagefright.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/7EF0AF17-81DE-160C-6E4D-62A930D5CDAD/libmediaplayerservice.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/1883C9A5-0D74-FFBB-8BEB-975550D98460/liboplusmediaplayerservice.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F33FF539-76AE-26D3-0A5F-7307FE509EEE/liboplusutils.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/4BDDFB25-F00A-C2AA-33E7-F04B4FEAB5DE/liboplussfplugin_ccodec.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/0D38A646-14CF-FFED-7FDC-57868CBD5B7C/audio-permission-aidl-cpp.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/6150C4DB-DC98-5D10-3D67-8BFF53218D0B/libnbaio.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/BC19C49B-365B-EC00-D092-32719922C4E7/libicui18n.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/6C75C77B-BF27-8F15-9C20-8538923D24D5/liboplusmultimediaconfig.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/1DDB624D-F713-CBA4-5D72-9CE6CD7B0E43/libdrmframework.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/8BC19754-BC9E-4207-00A5-8416B1FF940F/liboplusvideoboostservice.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/7D4D1F92-679E-170A-1058-DD60CB619122/liboplus_multimedia_kernel_event.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/BE5A17FD-B8C5-DB79-ECCF-C69F19FB4B1B/libstatslog.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/602B6754-2D58-D7AE-C164-2BDE3EB18001/liboplus-uah-client.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/D5C4EBD4-46F8-8579-13D9-E6959D84C26B/liboplus_imageprocessing.so No LZMA support found for reading .gnu_debugdata section
-		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/B325B13A-EDD2-831A-56E3-75A6A4C9332A/libolc.so No LZMA support found for reading .gnu_debugdata section
-	
-	</details>
-	
+ 	<details><summary>vscode log</summary>
+ 	
+ 		Verbose logging: on  (Use "lldb.verboseLogging" setting to change)
+ 		Platform: linux x64
+ 		Initial debug configuration: {
+ 		  name: 'Android LLDB Attach',
+ 		  type: 'lldb',
+ 		  request: 'attach',
+ 		  pid: '${input:PidAttach}',
+ 		  program: '${workspaceFolder}/project/android/build64/llm_demo',
+ 		  initCommands: [
+ 		    'platform select remote-android',
+ 		    'platform connect connect://127.0.0.1:31313',
+ 		    'settings set target.inherit-env false',
+ 		    'platform settings -w /data/local/tmp/mnn-test',
+ 		    'platform status',
+ 		    'platform process list',
+ 		    'settings show target.disable-stdio',
+ 		    'settings set target.disable-stdio true',
+ 		    'settings show target.disable-stdio',
+ 		    'settings set target.preload-symbols false'
+ 		  ],
+ 		  __configurationTarget: 6
+ 		}
+ 		Resolved debug configuration: {
+ 		  name: 'Android LLDB Attach',
+ 		  type: 'lldb',
+ 		  request: 'attach',
+ 		  pid: '9239',
+ 		  program: '/workspace/code/MNN/project/android/build64/llm_demo',
+ 		  initCommands: [
+ 		    'platform select remote-android',
+ 		    'platform connect connect://127.0.0.1:31313',
+ 		    'settings set target.inherit-env false',
+ 		    'platform settings -w /data/local/tmp/mnn-test',
+ 		    'platform status',
+ 		    'platform process list',
+ 		    'settings show target.disable-stdio',
+ 		    'settings set target.disable-stdio true',
+ 		    'settings show target.disable-stdio',
+ 		    'settings set target.preload-symbols false'
+ 		  ],
+ 		  __configurationTarget: 6,
+ 		  relativePathBase: '/workspace/code/MNN',
+ 		  _adapterSettings: {
+ 		    displayFormat: 'auto',
+ 		    showDisassembly: 'auto',
+ 		    dereferencePointers: true,
+ 		    suppressMissingSourceFiles: true,
+ 		    evaluationTimeout: 5,
+ 		    consoleMode: 'commands',
+ 		    sourceLanguages: null,
+ 		    scriptConfig: {},
+ 		    evaluateForHovers: true,
+ 		    commandCompletions: true
+ 		  }
+ 		}
+ 		Launching adapter
+ 		liblldb: 
+ 		lldbServer: 
+ 		environment: {}
+ 		settings: { evaluateForHovers: true, commandCompletions: true }
+ 		[0.10 INFO codelldb] Loaded "/root/.vscode-server/extensions/vadimcn.vscode-lldb-1.12.1/lldb/lib/liblldb.so", version="lldb version 21.1.7-codelldb"
+ 		[0.376 DEBUG codelldb] Connecting to 127.0.0.1:35049
+ 		[0.376 DEBUG codelldb] New debug session
+ 		[0.402 DEBUG codelldb::python] Compiling code: codelldb.interface.update_adapter_settings("""{"displayFormat":null,"showDisassembly":null,"dereferencePointers":null,"containerSummary":null,"evaluationTimeout":null,"summaryTimeout":null,"suppressMissingSourceFiles":null,"consoleMode":null,"sourceLanguages":null,"scriptConfig":null,"evaluateForHovers":true,"commandCompletions":true}""", globals())
+ 		[0.402 DEBUG codelldb::python] Created code object at 0x7f6fc0597110
+ 		[0.402 DEBUG codelldb::python] Evaluating code object at 0x7f6fc0597110
+ 		[0.402 DEBUG codelldb::python] Evaluation result: (void) result =
+ 		
+ 		[0.416 DEBUG codelldb::python] Dropping object at 0x7f6fc0597110
+ 		[0.434 DEBUG codelldb::dap_codec] --> {"command":"initialize","arguments":{"clientID":"vscode","clientName":"Visual Studio Code","adapterID":"lldb","pathFormat":"path","linesStartAt1":true,"columnsStartAt1":true,"supportsVariableType":true,"supportsVariablePaging":true,"supportsRunInTerminalRequest":true,"locale":"zh-cn","supportsProgressReporting":true,"supportsInvalidatedEvent":true,"supportsMemoryReferences":true,"supportsArgsCanBeInterpretedByShell":true,"supportsMemoryEvent":true,"supportsStartDebuggingRequest":true,"supportsANSIStyling":true},"type":"request","seq":1}
+ 		[0.435 DEBUG codelldb::dap_codec] <-- {"seq":1,"type":"response","request_seq":1,"success":true,"command":"initialize","body":{"exceptionBreakpointFilters":[{"default":true,"filter":"cpp_throw","label":"C++: on throw","supportsCondition":true},{"default":false,"filter":"cpp_catch","label":"C++: on catch","supportsCondition":true}],"supportTerminateDebuggee":true,"supportsCancelRequest":true,"supportsClipboardContext":true,"supportsCompletionsRequest":true,"supportsConditionalBreakpoints":true,"supportsConfigurationDoneRequest":true,"supportsDataBreakpointBytes":true,"supportsDataBreakpoints":true,"supportsDelayedStackTraceLoading":true,"supportsDisassembleRequest":true,"supportsEvaluateForHovers":true,"supportsExceptionFilterOptions":true,"supportsExceptionInfoRequest":true,"supportsFunctionBreakpoints":true,"supportsGotoTargetsRequest":true,"supportsHitConditionalBreakpoints":true,"supportsInstructionBreakpoints":true,"supportsLogPoints":true,"supportsModulesRequest":true,"supportsReadMemoryRequest":true,"supportsRestartRequest":true,"supportsSetVariable":true,"supportsStepInTargetsRequest":true,"supportsSteppingGranularity":true,"supportsWriteMemoryRequest":true}}
+ 		[0.479 DEBUG codelldb::dap_codec] --> {"command":"attach","arguments":{"name":"Android LLDB Attach","type":"lldb","request":"attach","pid":"9239","program":"/workspace/code/MNN/project/android/build64/llm_demo","initCommands":["platform select remote-android","platform connect connect://127.0.0.1:31313","settings set target.inherit-env false","platform settings -w /data/local/tmp/mnn-test","platform status","platform process list","settings show target.disable-stdio","settings set target.disable-stdio true","settings show target.disable-stdio","settings set target.preload-symbols false"],"__configurationTarget":6,"relativePathBase":"/workspace/code/MNN","_adapterSettings":{"displayFormat":"auto","showDisassembly":"auto","dereferencePointers":true,"suppressMissingSourceFiles":true,"evaluationTimeout":5,"consoleMode":"commands","sourceLanguages":null,"scriptConfig":{},"evaluateForHovers":true,"commandCompletions":true},"__sessionId":"d48f9fb7-6d82-457d-8328-c1b37b556795"},"type":"request","seq":2}
+ 		[0.479 DEBUG codelldb::python] Compiling code: codelldb.interface.update_adapter_settings("""{"displayFormat":"auto","showDisassembly":"auto","dereferencePointers":true,"containerSummary":null,"evaluationTimeout":5.0,"summaryTimeout":null,"suppressMissingSourceFiles":true,"consoleMode":"commands","sourceLanguages":null,"scriptConfig":{},"evaluateForHovers":true,"commandCompletions":true}""", globals())
+ 		[0.479 DEBUG codelldb::python] Created code object at 0x7f6fc0597110
+ 		[0.479 DEBUG codelldb::python] Evaluating code object at 0x7f6fc0597110
+ 		[0.479 DEBUG codelldb::python] Evaluation result: (void) result =
+ 		
+ 		[0.480 DEBUG codelldb::python] Dropping object at 0x7f6fc0597110
+ 		[0.480 DEBUG codelldb::dap_codec] <-- {"seq":2,"type":"event","event":"output","body":{"category":"console","output":"Console is in 'commands' mode, prefix expressions with '?'.\n"}}
+ 		[0.480 DEBUG codelldb::dap_codec] <-- {"seq":3,"type":"event","event":"output","body":{"category":"console","output":"Executing script: initCommands\n"}}
+ 		[0.480 DEBUG codelldb::debug_session] platform select remote-android -> SuccessFinishResult, Error:  Success
+ 		Output Message:
+ 		  Platform: remote-android
+ 		 Connected: no
+ 		
+ 		[0.480 DEBUG codelldb::dap_codec] <-- {"seq":4,"type":"event","event":"output","body":{"category":"console","output":"  Platform: remote-android\n Connected: no\n\n"}}
+ 		[1.37 DEBUG codelldb::debug_session] platform connect connect://127.0.0.1:31313 -> SuccessFinishResult, Error:  Success
+ 		Output Message:
+ 		  Platform: remote-android
+ 		    Triple: aarch64-unknown-linux-android
+ 		OS Version: 35 (6.6.30-android15-8-g013ec21bba94-abogki383916444-4k)
+ 		  Hostname: localhost
+ 		 Connected: yes
+ 		WorkingDir: /data/local/tmp/mnn-test
+ 		    Kernel: #1 SMP PREEMPT Tue Dec 17 23:36:49 UTC 2024
+ 		
+ 		[1.37 DEBUG codelldb::dap_codec] <-- {"seq":5,"type":"event","event":"output","body":{"category":"console","output":"  Platform: remote-android\n    Triple: aarch64-unknown-linux-android\nOS Version: 35 (6.6.30-android15-8-g013ec21bba94-abogki383916444-4k)\n  Hostname: localhost\n Connected: yes\nWorkingDir: /data/local/tmp/mnn-test\n    Kernel: #1 SMP PREEMPT Tue Dec 17 23:36:49 UTC 2024\n\n"}}
+ 		[1.37 DEBUG codelldb::debug_session] settings set target.inherit-env false -> SuccessFinishResult, Error:  Success
+ 		[1.137 DEBUG codelldb::debug_session] platform settings -w /data/local/tmp/mnn-test -> SuccessFinishNoResult, Error:  Success
+ 		[1.233 DEBUG codelldb::debug_session] platform status -> SuccessFinishResult, Error:  Success
+ 		Output Message:
+ 		  Platform: remote-android
+ 		    Triple: aarch64-unknown-linux-android
+ 		OS Version: 35 (6.6.30-android15-8-g013ec21bba94-abogki383916444-4k)
+ 		  Hostname: localhost
+ 		 Connected: yes
+ 		WorkingDir: /data/local/tmp/mnn-test
+ 		    Kernel: #1 SMP PREEMPT Tue Dec 17 23:36:49 UTC 2024
+ 		
+ 		[1.234 DEBUG codelldb::dap_codec] <-- {"seq":6,"type":"event","event":"output","body":{"category":"console","output":"  Platform: remote-android\n    Triple: aarch64-unknown-linux-android\nOS Version: 35 (6.6.30-android15-8-g013ec21bba94-abogki383916444-4k)\n  Hostname: localhost\n Connected: yes\nWorkingDir: /data/local/tmp/mnn-test\n    Kernel: #1 SMP PREEMPT Tue Dec 17 23:36:49 UTC 2024\n\n"}}
+ 		[1.947 DEBUG codelldb::debug_session] platform process list -> SuccessFinishNoResult, Error:  Success
+ 		Output Message:
+ 		6 matching processes were found on "remote-android"
+ 		
+ 		PID    PARENT USER       TRIPLE                         NAME
+ 		====== ====== ========== ============================== ============================
+ 		3264   1      shell                                     
+ 		9221   3264   shell      aarch64-unknown-linux-android  sh
+ 		9226   3264   shell      aarch64-unknown-linux-android  sh
+ 		9232   3264   shell      aarch64-unknown-linux-android  sh
+ 		9239   9226   shell      aarch64-unknown-linux-android  llm_demo
+ 		10599  9221   shell      aarch64-unknown-linux-android  lldb-server
+ 		
+ 		[1.947 DEBUG codelldb::debug_session] settings show target.disable-stdio -> SuccessFinishResult, Error:  Success
+ 		Output Message:
+ 		target.disable-stdio (boolean) = false
+ 		
+ 		[1.947 DEBUG codelldb::dap_codec] <-- {"seq":7,"type":"event","event":"output","body":{"category":"console","output":"6 matching processes were found on \"remote-android\"\n\nPID    PARENT USER       TRIPLE                         NAME\n====== ====== ========== ============================== ============================\n3264   1      shell                                     \n9221   3264   shell      aarch64-unknown-linux-android  sh\n9226   3264   shell      aarch64-unknown-linux-android  sh\n9232   3264   shell      aarch64-unknown-linux-android  sh\n9239   9226   shell      aarch64-unknown-linux-android  llm_demo\n10599  9221   shell      aarch64-unknown-linux-android  lldb-server\n\n"}}
+ 		[1.947 DEBUG codelldb::debug_session] settings set target.disable-stdio true -> SuccessFinishResult, Error:  Success
+ 		[1.947 DEBUG codelldb::debug_session] settings show target.disable-stdio -> SuccessFinishResult, Error:  Success
+ 		Output Message:
+ 		target.disable-stdio (boolean) = true
+ 		
+ 		[1.947 DEBUG codelldb::debug_session] settings set target.preload-symbols false -> SuccessFinishResult, Error:  Success
+ 		[1.947 DEBUG codelldb::dap_codec] <-- {"seq":8,"type":"event","event":"output","body":{"category":"console","output":"target.disable-stdio (boolean) = false\n\n"}}
+ 		[1.947 DEBUG codelldb::dap_codec] <-- {"seq":9,"type":"event","event":"output","body":{"category":"console","output":"target.disable-stdio (boolean) = true\n\n"}}
+ 		INFO(Python) 13:09:06 lang_support: languages: set()
+ 		[2.51 DEBUG codelldb::dap_codec] <-- {"seq":10,"type":"event","event":"initialized"}
+ 		[2.94 DEBUG codelldb::dap_codec] --> {"command":"setBreakpoints","arguments":{"source":{"name":"llm_demo.cpp","path":"/workspace/code/MNN/transformers/llm/engine/demo/llm_demo.cpp"},"lines":[197,246,265,301],"breakpoints":[{"line":197},{"line":246},{"line":265},{"line":301}],"sourceModified":false},"type":"request","seq":3}
+ 		[2.104 DEBUG codelldb::debug_session] Debug event: 0x55938b1e6058 Event: broadcaster = 0x55938b1cafb0 (lldb.target), type = 0x00000001 (breakpoint-changed), data = {bkpt: 1 type: breakpoint added}
+ 		[2.104 DEBUG codelldb::debug_session] Debug event: 0x55938bbb0cd8 Event: broadcaster = 0x55938b1cafb0 (lldb.target), type = 0x00000001 (breakpoint-changed), data = {bkpt: 2 type: breakpoint added}
+ 		[2.104 DEBUG codelldb::dap_codec] <-- {"seq":11,"type":"response","request_seq":3,"success":true,"command":"setBreakpoints","body":{"breakpoints":[{"id":1,"line":198,"message":"Resolved locations: 0","verified":true},{"id":2,"line":246,"message":"Resolved locations: 0","verified":true},{"id":3,"line":265,"message":"Resolved locations: 0","verified":true},{"id":4,"line":301,"message":"Resolved locations: 0","verified":true}]}}
+ 		[2.104 DEBUG codelldb::debug_session] Debug event: 0x55938be74b38 Event: broadcaster = 0x55938b1cafb0 (lldb.target), type = 0x00000001 (breakpoint-changed), data = {bkpt: 3 type: breakpoint added}
+ 		[2.104 DEBUG codelldb::debug_session] Debug event: 0x55938be759d8 Event: broadcaster = 0x55938b1cafb0 (lldb.target), type = 0x00000001 (breakpoint-changed), data = {bkpt: 4 type: breakpoint added}
+ 		[2.104 DEBUG codelldb::dap_codec] --> {"command":"setFunctionBreakpoints","arguments":{"breakpoints":[]},"type":"request","seq":4}
+ 		[2.104 DEBUG codelldb::dap_codec] --> {"command":"setInstructionBreakpoints","arguments":{"breakpoints":[]},"type":"request","seq":5}
+ 		[2.104 DEBUG codelldb::dap_codec] --> {"command":"setExceptionBreakpoints","arguments":{"filters":[],"filterOptions":[{"filterId":"cpp_throw"},{"filterId":"cpp_catch"}]},"type":"request","seq":6}
+ 		[2.104 DEBUG codelldb::dap_codec] --> {"command":"setDataBreakpoints","arguments":{"breakpoints":[]},"type":"request","seq":7}
+ 		[2.104 DEBUG codelldb::dap_codec] <-- {"seq":12,"type":"response","request_seq":4,"success":true,"command":"setFunctionBreakpoints","body":{"breakpoints":[]}}
+ 		[2.104 DEBUG codelldb::dap_codec] <-- {"seq":13,"type":"response","request_seq":5,"success":true,"command":"setInstructionBreakpoints","body":{"breakpoints":[]}}
+ 		[2.104 DEBUG codelldb::debug_session] Debug event: 0x55938be759d8 Event: broadcaster = 0x55938b1cafb0 (lldb.target), type = 0x00000001 (breakpoint-changed), data = {bkpt: 5 type: breakpoint added}
+ 		[2.104 DEBUG codelldb::debug_session] Debug event: 0x55938be74b38 Event: broadcaster = 0x55938b1cafb0 (lldb.target), type = 0x00000001 (breakpoint-changed), data = {bkpt: 6 type: breakpoint added}
+ 		[2.104 DEBUG codelldb::dap_codec] <-- {"seq":14,"type":"response","request_seq":6,"success":true,"command":"setExceptionBreakpoints","body":{"breakpoints":[{"id":5,"message":"Resolved locations: 0","verified":false},{"id":6,"message":"Resolved locations: 0","verified":false}]}}
+ 		[2.104 DEBUG codelldb::dap_codec] <-- {"seq":15,"type":"response","request_seq":7,"success":true,"command":"setDataBreakpoints","body":{"breakpoints":[]}}
+ 		[2.208 DEBUG codelldb::dap_codec] --> {"command":"configurationDone","type":"request","seq":8}
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/8C68F140-AAA2-F707-F730-F2EE4E510120/libandroidfw.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/47A4DF2E-C980-CA7B-EE2C-5162D1311A67/libpowermanager.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/9DF5DFA7-C0A9-BEE1-18E8-59821ACCE119/libhidlbase.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/B91287F0-90CF-9F69-4DDD-2F1A515321DD/libandroid_runtime.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/59856B9D-1F82-D3A6-C71D-66834CA846B9/libGLESv2.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F4D570AA-256C-18CF-EA9D-AE414A89DA7D/libm.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/E5A3DA1A-4375-273B-68D0-BD446CDE5B09/libPlatformProperties.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/DE46E75F-F2ED-1E2C-471D-4636BABCB461/libgralloctypes.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/59EDC081-6CC9-8412-738C-D7D9FD088A51/android.hardware.graphics.bufferqueue@2.0.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F7541D18-8FBA-9039-6D97-EC2354A99C0C/libandroid.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/B18C8A03-80E8-9331-80E2-E5D0A8F17968/libhardware.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/236EA1BC-94E0-AFD5-BC7F-F1431CE6E873/libui.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/9C5275F2-9E5F-BCAB-CA91-F471539F6C33/libharfbuzz_ng.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/49F04F9F-4BAB-7644-EBE0-CD12D5CBA422/android.media.audiopolicy-aconfig-cc.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F643E105-5895-E50E-6646-2991C8BD651A/libsensor.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/D4EFBE1C-EE05-5ADB-7BC0-6563275B325A/libactivitymanager_aidl.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F4788000-0CAD-34AE-85A3-A6D6EB47AF56/libnetd_client.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/E9F6E11C-F330-D7B5-DA0A-E574B08DE2BF/libappfuse.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/1ABE5FF0-44ED-C7D5-EDEC-7513BEFDFB08/libhwui.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/6616E752-0D49-82C8-B16F-490C2FCE7B07/libxml2.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/D7BFEF10-7332-8147-237F-DCD213DDB0F4/libEGL.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/5A4C3962-7C1C-0C27-B85E-2B07FF8406E8/android.hardware.configstore@1.0.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/5794558E-3A70-DE27-7ACE-8D96CC135A6E/libprocessgroup.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/E53513AD-07B9-A2D3-8E10-BB9640873A51/android.os.flags-aconfig-cc.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/17FB6C42-A328-8C80-F6B1-2E8DCE44BA87/android.hardware.common.fmq-V1-ndk.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/BCF22BAF-8100-0E78-7DBF-DA0634CDCAE3/libdng_sdk.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/53E0091D-25A7-8880-2D2D-3A5324F79B52-7DF4913F/libc++.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F813C105-4BF3-8946-F3DD-ACFA5A0F5D92/libaconfig_storage_read_api_cc.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/D2388CD6-B4A2-3C03-AAC6-A43F69DBE3E7/libprotobuf-cpp-lite.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F51A883E-B8A3-E395-D776-028AAFD911B2/libincfs.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/1D37DF90-6550-A769-0656-A118D5D3E48C/libtinyxml2.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/71BEA50E-B26B-2551-6A93-71624A6F6C48/libapexsupport.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/75F07E30-8942-51A2-09D9-EFD05765443E/libcutils.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/ACCECA4F-7FDF-AAB5-8CA4-D22F02EFCFA2/android.hardware.graphics.allocator@2.0.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/268C25BF-EE33-DEFE-E41F-04FA65438E3F/android.hardware.graphics.mapper@3.0.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/7249C1EE-880D-5DC5-6D20-218B90D0EE70/liblog.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/D1D3BF8F-E6FE-CD69-21AC-714B5EF42E28/libutils.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/FD865493-6014-8D9B-9146-148D898ACE8B/android.hardware.graphics.bufferqueue@1.0.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/4FC00C98-6358-5F87-0F76-2CDD96F8D6FE/android.hardware.graphics.common@1.1.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/D6FD5669-9855-0295-6CD6-3C15A6BA2463/libnativewindow.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F100ABB4-5F8D-9443-385E-41FAA8C60894/libbinder_ndk.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/10880913-0278-27E8-B7B9-E2B0073332E6/libpermission.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/E7298183-6700-D01A-9E07-A7EFE0463AB4/libgui.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/D3BDEF9F-76E0-0746-698A-FDB95AFBC4E3/android.hardware.configstore@1.1.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/65F76722-B6BA-9085-2F32-C65B2917B63B/android.media.audio.common.types-V4-cpp.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/622B1765-4662-9AB1-9F5E-C1DFBBC18E6A/av-types-aidl-cpp.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/AE1416DE-9C2C-8E2A-03B1-9B4A77B111D1/libandroid_net.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/92739A8D-5622-5793-8128-28A5C6293AF2/libminikin.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/6A5F8F94-CFE5-65DC-C001-95D7A3CA9602/libdebuggerd_client.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/FB11B3F2-0030-F996-41AD-EBC1949142B6/libsqlite.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/D33A3544-5B95-B61F-40F2-1B097B982B2E/android.hardware.configstore-utils.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/93CCDE3F-366F-7E38-3EC0-899B87F4C45F/libselinux.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/89BD714E-5DEF-C9AE-88C7-2982F3EF3AC8/libnativeloader_lazy.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/D4B2FFC5-F138-6CF1-32E1-2AB8C6DCFB37/liboplusplugin.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/3E69A5D9-5456-0A62-90D7-0565B0B436B0/libultrahdr.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/90259EF0-41B0-1885-8D40-258E8170B217/aconfig_text_flags_c_lib.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/070EE97F-074D-C13F-D642-DC3627F7CE57/libz.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/D89F718A-0F70-5B6B-21A7-444F4CB496F3/libheif.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/EEA2E831-DF57-26D5-5A9E-100BA0E291AF/libft2.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/6E0FBED8-8045-2E8A-276A-ED99974D2903/lib-platform-compat-native-api.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/7926FF37-5B46-6646-59D5-04CBC606B997/libpackagelistparser.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F05BB986-1975-74CF-310A-A7F2244D981F/android.hardware.power@1.0.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/217D4A46-760A-940D-FED2-1538F547262D/libbinder.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/B8FA905C-387B-6EC6-2B8C-29E3B0D5E1C1/android.hardware.power@1.1.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/E1E52A3B-FD01-7616-6655-977ED25478CF/android.hardware.power@1.2.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/48EDFCD7-4765-28A8-2472-D6BA77AA16C1/android.hardware.power@1.3.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/7F0888CC-ACBD-22DC-6197-E024D61DB019/com.android.media.audioclient-aconfig-cc.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/27AA0829-9412-F262-58C6-9E6226585DEA/android.hardware.graphics.common@1.0.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/D1234763-4E7A-21ED-F65D-AE44CB959CDB/libaudiomanager.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/5A118426-37D9-7B8C-323D-5ACA6BB7AA92/android.hidl.token@1.0.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/4EB1AD8B-2324-C684-BF89-FDBAA325836A/framework-permission-aidl-cpp.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/22F4901A-3743-4C39-8C4E-5F0BEA118079/effect-aidl-cpp.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/5B965CF4-265D-81F2-1F99-DA9B6B0EBF34/shared-file-region-aidl-cpp.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/68D733EC-E14A-6DDF-08A5-0C37D3EE00E8/android.hardware.camera.common@1.0.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F891BE37-E405-66BF-2B9B-8C8C5474A680/android.hardware.memtrack@1.0.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/4D0532B3-F1D1-B4FC-ED69-FC5BD7A829BC/android.hardware.memtrack-V1-ndk.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/CE04558B-0A23-351D-CADD-5E511B6B8953/libETC1.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/BC2C7F87-8C6B-0064-210F-D4977F2C66F0/libandroid_runtime_lazy.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/4B758857-1C68-D480-E403-0D92344242F7/libcgrouprc.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/A8BBDFEA-E174-30B5-7E6A-5BABCBA908B1/libbpf_bcc.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/24CF4CEC-1D73-44C8-ED75-5884E4953E22/libdatasource.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/4D599915-9EC2-D153-B954-35161286B527/libmediadrm.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/8A8683E2-3717-CC18-680C-E0EFE97EAA96/libmedia_omx.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/A96DAF57-6898-C714-C5EC-DC88B80C294B/libmedia_jni_utils.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/4E0635FF-666C-8B48-8CCF-5566C7FDBD40/libstagefright.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/EEBAA949-2A40-455A-8475-F7E9A76F87D2/libstagefright_foundation.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/3C0DB02C-271B-A2E2-CC7B-63E904E5638E/libmediandk_utils.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F1D853BA-297B-CA2A-3014-65C02F8CF647/android.hardware.drm-V1-ndk.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/D7E60A1B-02A0-A89D-5AB7-E1883A8B5067/libSurfaceFlingerProp.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/0C7C0800-AF68-65E6-4893-CE47B8AB6DA3/camera_platform_flags_c_lib.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/4E788058-CF19-E541-C41C-22663B333A4D/libunwindstack.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/3B0FA744-EEA5-F951-8170-DE832FD9F1CE/libziparchive.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/FCDD8634-77D9-C35A-04F7-E46E76ADF01C/libpcre2.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/CFB68FE0-E192-4651-97FC-C0D3F944F7A0/libmedia_codeclist.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/1EC03020-A00F-FCAD-59B4-6CDF97537D05/liboplusremotedisplay.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/CEAF7077-8476-ED6E-BBBB-10D160D6BD60/liboplusremotedisplayclient.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/1F7EED6E-4DD5-6CBB-45B6-E89615257E9D/android.hardware.drm@1.4.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/2158C75E-4988-C285-1896-357F99993475/android.hardware.media.omx@1.0.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/AC68D018-F02B-14CC-1B51-F5E83226129C/capture_state_listener-aidl-cpp.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/01DF55F6-1428-95DC-DBAA-4FE0203DE907/libaudio_aidl_conversion_common_cpp.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/63A840F8-69D6-5DFC-BD42-B430C2F559F9/libcodec2.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/75FC895D-0EDC-4A29-C95B-D983A003758F/libaudioutils.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F4EB4AAA-F8B1-F58E-6040-561179D5E38E/libmedia_omx_client.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F8CCC3F7-ABD2-6816-EE77-C2BBBC1EF11F/libnblog.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F4D585C7-43F3-C29F-70F0-60B139280236/libshmemcompat.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/BC87EF18-DF8F-7AA9-77EE-59BE3A33D4BD/libcamera_metadata.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/8D5546FC-C984-4C53-AE4D-A68376649C07/packagemanager_aidl-cpp.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/3BC123B3-2E0D-1DA2-4608-CBE1EFDFEDF3/liboplusmmdebug.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/8C6E0D1F-F75D-74B0-94BC-781C562A7092/libnativedisplay.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/52C82393-C710-2821-9339-0A5C5CE8BF91/libbpf_minimal.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F862C6CB-6B56-928F-7B24-D2A3B49ADA5E/liboplusloadframe.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/364C8677-368A-1BA8-E6F8-CBCBF5B8FF74/libjpegencoder.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/61F0425A-F9C9-47CE-4E65-7AC31E7BAAC8/android.hardware.media.bufferpool@2.0.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/9B34299E-EB2E-93CF-3C80-9A6B855ABDC5/liblzma.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/BC304671-6DBD-7AFD-44CB-44531D3F3C53/libmediadrmmetrics_lite.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/C1BED4E7-F50E-454B-3115-B12789484E9C/android.hardware.drm@1.0.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/16EE5061-D6A1-1B5D-3C3A-58B595FE99E1/android.hardware.drm@1.1.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/59C7A5B8-100F-C786-A237-534275FFF031/vendor.dolby.dvs-V1-ndk.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/D8133337-22F8-4E5C-FC7E-81580D92885D/android.system.suspend-V1-ndk.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/D0870D5B-92DD-9BD8-990C-2A6C5D189A33/android.hardware.drm@1.2.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/6576446C-95B5-8FC8-12D0-19864EAF1A6E/libcodec2_client.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/56EE6975-54BD-8AF9-256B-E8F25D7B5093/android.hardware.drm@1.3.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/773E4036-29F6-0510-7FE9-D09F3ACBFC17/mediametricsservice-aidl-cpp.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/B13CB8E9-12AE-139B-DFD0-F590ADC67617/libhidlallocatorutils.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/42F83B19-A621-BCAE-5536-880C786C936D/audiopolicy-aidl-cpp.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/8571E439-E7CC-207A-B9E8-3981166AA953/android.hidl.memory@1.0.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/C62C6178-578C-7D26-455F-B1F590F8624C/android.hardware.cas@1.0.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/94E17DA2-D20D-C000-3672-D0C4933C9BF3/libcodec2_vndk.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/470D87DF-0FBB-48DE-058A-BF31ED48D4BA/libcodec2_hal_common.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/090FF4C1-571A-EF9F-4679-C5600FF8886B/libsfplugin_ccodec.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/A11669AA-BD01-1D70-2046-55568F4BC3B6/libsfplugin_ccodec_utils.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/39D4A1F6-8339-7BE8-174D-C8C26569B3D3/libstagefright_codecbase.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/D488A480-3BB5-3EAF-655D-4B4D6793C0A9/libstagefright_omx_utils.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/5141AA36-4CA6-DEB3-0E83-899F3A211574/libhidlmemory.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/C85E596D-528C-8413-61FD-1543C6A468A4/android.hidl.allocator@1.0.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/4FDA2AC3-923D-7AFB-EA12-7D310D09CC33/android.hardware.cas.native@1.0.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/45386C91-5C0E-7873-D765-C358266F5F5B/aconfig_mediacodec_flags_c_lib.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/6CF112A3-E61A-25C9-DF8C-4B0C67589CF7/libspeexresampler.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/C7F41251-6A79-5DC6-5A07-3BF6241A7C9C/com.android.media.audio-aconfig-cc.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F9CB190B-FDC3-6AC0-2DFE-AF1A0887DDA2/libjpegdecoder.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/1FA53D37-49E7-8B23-E3B4-20BD59C68B49/libshmemutil.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/30BB277C-5D0B-993A-92A2-FB5C746FE461/libandroidicu.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F6613968-B4EC-FA82-4056-2754492D3640/android.os.flags-aconfig-cc-host.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/05E97885-D5B8-746E-8213-2727CC62D273/android.hardware.media.bufferpool2-V2-ndk.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/91696B8B-0757-00FC-B0F2-BFA26B9DCA0C/android.hardware.media.c2-V1-ndk.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/D69A31D4-3CA9-6A0F-9FF7-695A6AAF01B8/libdmabufheap.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/A608E5AE-1FC9-711B-200A-F2FB29BE6197/libbsproxy.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F7332E1E-E32D-AAD0-791F-F4D8CFC6877D/libstagefright_bufferpool@2.0.1.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/7CF0AFB8-6366-A80A-9D9A-A2350B697FBC/libstagefright_aidl_bufferpool2.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/44DB7622-A843-97FB-D032-22840478D1E4/android.hardware.media.c2@1.0.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/D471166E-5DD7-A800-8B7E-465E56DD000E/liboplusvideoboostclient.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/26B88FA8-5E98-04BD-532B-C2BA5C3E86B6/libstagefright_bufferqueue_helper.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/62F6DFE5-993D-3537-C5B0-6D67D64BFB3C/libstagefright_graphicbuffersource_aidl.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/E392C887-912B-D578-93AE-F162D3B45C0A/libstagefright_omx.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/FD199BBD-8790-6261-A65B-5208D1BD269F/libstagefright_surface_utils.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/D15566A0-561C-7926-F6FC-29385CEE8E55/libstagefright_xmlparser.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/C7A683E7-6644-0421-38F2-BA9883A3AC3A/libstagefright_framecapture_utils.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/1412FD82-5729-D5FE-9E90-E3DAB35F0785/android.hidl.memory.token@1.0.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/29E601BA-E033-65DD-3170-6DD393D601FC/libopluscfgpolicy.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/A051CC35-7764-8479-301A-98F0F8E6766D/android.hardware.media@1.0.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F595F888-ADB0-0AEE-048E-C2D74AE8DC79/android.hidl.safe_union@1.0.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/36E68CBB-F317-919C-458E-33CC44855754/libmediautils.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/3733209E-B9F5-F655-C2A7-5B82D7C640A8/libcodec2_aidl_client.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/B41BE3A5-3B4A-FC6D-DC12-E9C67A361AE2/android.hardware.media.c2@1.1.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/BCED8136-6039-1212-C20A-492C58E80466/android.hardware.media.c2@1.2.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/37E43EAB-0240-B0A8-A9F0-EF72DC2D5B17/libcodec2_hidl_client@1.0.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/B7503E25-16EE-CD1A-8742-9B5B1A01F5BB/libcodec2_hidl_client@1.1.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/DCBAF5C2-CC21-0D9D-BFCD-FDD334B0431D/libcodec2_hidl_client@1.2.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/5C9EE94B-207A-672D-08E7-48164014FB06/libstagefright_httplive.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/977C3587-F5F1-6B11-C61B-35D997D61738/libicu.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/4F4D5F18-A6BE-4344-EA17-DC9DC7411427/libicuuc.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/63DA7563-739E-6B10-0281-6046A3D1FF9D/libatlasservice.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/5BA0567C-E2DB-159D-2FBC-A7A1553C861A/libostatslog.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/44104D0C-22BC-EB23-188C-DC8D9879E00E/libinputextensionsimpl.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/2D06A995-3D42-EDC9-126A-602DEA5F176E/libdrmframeworkcommon.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/C3618A49-D5FE-BCC0-33B1-8F81144623B9/libion.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/5CE798D7-1505-31D7-04C9-931E7E821859/libskjpegencoderextimpl.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/55CC7435-9BEE-63CE-66EF-B7E49A8E25C3/vendor.oplus.hardware.urcc-V1-ndk.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/0369ED75-A4C8-871F-CAC0-CA5058B89AF4/graphicbuffersource-aidl-ndk.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/7725EFB8-4388-9F2F-AC5E-381796F1A207/libstatssocket.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/4438F18D-386D-940E-CB37-6C59BB81938B/libstatspull.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/3DACF6CB-307A-C2BD-6BC6-41B4705D805E/libaudioclientextimpl.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/8724936D-12B0-0A45-E855-DE82BD2BF9F5/vendor.oplus.hardware.performance-V1-ndk.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/2A91ADBC-2C8D-8343-B339-45A3530E3D97/libiatlasservice.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/FB393EC0-4529-BBE4-7DE1-CDC2B623642A/libimmlistservice.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/80072B39-258E-25AD-482F-BCA4E522757A/liboplusaudioDump.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/145692BC-7B48-FA7D-4DEE-9F3647C9F400/libvibrator.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/86AFE71B-BEDF-86F9-96DD-27031077E951/libmmlistparser.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/2472CDC5-FA7D-3D3C-FBF6-4F6F6CB161FA/liboplusavenhancements.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/7401D122-F709-E469-F346-2FA68B905BB8/libavenhancements.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/0B7AB220-8D7B-1F08-5CC8-36C34FBDA133/liboplusstagefright.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/7EF0AF17-81DE-160C-6E4D-62A930D5CDAD/libmediaplayerservice.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/1883C9A5-0D74-FFBB-8BEB-975550D98460/liboplusmediaplayerservice.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/F33FF539-76AE-26D3-0A5F-7307FE509EEE/liboplusutils.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/4BDDFB25-F00A-C2AA-33E7-F04B4FEAB5DE/liboplussfplugin_ccodec.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/0D38A646-14CF-FFED-7FDC-57868CBD5B7C/audio-permission-aidl-cpp.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/6150C4DB-DC98-5D10-3D67-8BFF53218D0B/libnbaio.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/BC19C49B-365B-EC00-D092-32719922C4E7/libicui18n.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/6C75C77B-BF27-8F15-9C20-8538923D24D5/liboplusmultimediaconfig.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/1DDB624D-F713-CBA4-5D72-9CE6CD7B0E43/libdrmframework.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/8BC19754-BC9E-4207-00A5-8416B1FF940F/liboplusvideoboostservice.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/7D4D1F92-679E-170A-1058-DD60CB619122/liboplus_multimedia_kernel_event.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/BE5A17FD-B8C5-DB79-ECCF-C69F19FB4B1B/libstatslog.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/602B6754-2D58-D7AE-C164-2BDE3EB18001/liboplus-uah-client.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/D5C4EBD4-46F8-8579-13D9-E6959D84C26B/liboplus_imageprocessing.so No LZMA support found for reading .gnu_debugdata section
+ 		warning: (aarch64) /root/.lldb/module_cache/remote-android/.cache/B325B13A-EDD2-831A-56E3-75A6A4C9332A/libolc.so No LZMA support found for reading .gnu_debugdata section
+ 	
+ 	</details>
+
+### 3.4  内存错误检测工具
+
+**[AddressSanitizer（ASan）](https://learn.microsoft.com/zh-cn/cpp/sanitizers/asan?view=msvc-170)** 是 CMake 构建系统中用于启用内存检测工具，能够高效识别多种难以察觉的内存问题，包括：堆/栈/全局缓冲区溢出、释放后使用（use-after-free）、内存分配/释放不匹配、越界访问等。
+
+开启下面编译选项，在运行时发生内存越界过程程序会立刻停止并且打印报告，帮助更好定位内存问题。
+
+```shell
+-DCMAKE_CXX_FLAGS=-fsanitize=address, -DCMAKE_C_FLAGS=-fsanitize=address
+```
+
+例如在重新开发CPUAttention算子时，触发的下面内存越界log：
+
+```shell
+=================================================================
+==271723==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x61500004ad4f at pc 0x7f65d4c2fabe bp 0x7f65d08f72b0 sp 0x7f65d08f72a8
+WRITE of size 16 at 0x61500004ad4f thread T3
+    #0 0x7f65d4c2fabd in void _AVX_MNNPackednMatMulRemainCommon<float>(float*, float const*, float const*, unsigned long, unsigned long const*) /workspace/code/MNN/source/backend/cpu/x86_x64/avxfma/../avx/GemmFunction.hpp:815:9
+    #1 0x7f65d4c2cc84 in _AVX_MNNPackedMatMulRemainFMA /workspace/code/MNN/source/backend/cpu/x86_x64/avxfma/GemmAVX2FMA.cpp:58:5
+    #2 0x7f65d4772393 in MNN::CPUAttention::onExecute(std::vector<MNN::Tensor*, std::allocator<MNN::Tensor*> > const&, std::vector<MNN::Tensor*, std::allocator<MNN::Tensor*> > const&)::$_1::operator()(int) const /workspace/code/MNN/source/backend/cpu/CPUAttention.cpp:615:25
+    #3 0x7f65d476b03d in void std::__invoke_impl<void, MNN::CPUAttention::onExecute(std::vector<MNN::Tensor*, std::allocator<MNN::Tensor*> > const&, std::vector<MNN::Tensor*, std::allocator<MNN::Tensor*> > const&)::$_1&, int>(std::__invoke_other, MNN::CPUAttention::onExecute(std::vector<MNN::Tensor*, std::allocator<MNN::Tensor*> > const&, std::vector<MNN::Tensor*, std::allocator<MNN::Tensor*> > const&)::$_1&, int&&) /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/invoke.h:61:14
+    #4 0x7f65d476af81 in std::enable_if<__and_<std::is_void<void>, std::__is_invocable<MNN::CPUAttention::onExecute(std::vector<MNN::Tensor*, std::allocator<MNN::Tensor*> > const&, std::vector<MNN::Tensor*, std::allocator<MNN::Tensor*> > const&)::$_1&, int> >::value, void>::type std::__invoke_r<void, MNN::CPUAttention::onExecute(std::vector<MNN::Tensor*, std::allocator<MNN::Tensor*> > const&, std::vector<MNN::Tensor*, std::allocator<MNN::Tensor*> > const&)::$_1&, int>(MNN::CPUAttention::onExecute(std::vector<MNN::Tensor*, std::allocator<MNN::Tensor*> > const&, std::vector<MNN::Tensor*, std::allocator<MNN::Tensor*> > const&)::$_1&, int&&) /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/invoke.h:154:7
+    #5 0x7f65d476aab1 in std::_Function_handler<void (int), MNN::CPUAttention::onExecute(std::vector<MNN::Tensor*, std::allocator<MNN::Tensor*> > const&, std::vector<MNN::Tensor*, std::allocator<MNN::Tensor*> > const&)::$_1>::_M_invoke(std::_Any_data const&, int&&) /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/std_function.h:290:9
+    #6 0x7f65d608b921 in std::function<void (int)>::operator()(int) const /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/std_function.h:590:9
+    #7 0x7f65d4778e9f in MNN::CPUAttention::onExecute(std::vector<MNN::Tensor*, std::allocator<MNN::Tensor*> > const&, std::vector<MNN::Tensor*, std::allocator<MNN::Tensor*> > const&)::$_2::operator()(int) const /workspace/code/MNN/source/backend/cpu/CPUAttention.cpp:757:9
+    #8 0x7f65d4778e3d in void std::__invoke_impl<void, MNN::CPUAttention::onExecute(std::vector<MNN::Tensor*, std::allocator<MNN::Tensor*> > const&, std::vector<MNN::Tensor*, std::allocator<MNN::Tensor*> > const&)::$_2&, int>(std::__invoke_other, MNN::CPUAttention::onExecute(std::vector<MNN::Tensor*, std::allocator<MNN::Tensor*> > const&, std::vector<MNN::Tensor*, std::allocator<MNN::Tensor*> > const&)::$_2&, int&&) /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/invoke.h:61:14
+    #9 0x7f65d4778d91 in std::enable_if<__and_<std::is_void<void>, std::__is_invocable<MNN::CPUAttention::onExecute(std::vector<MNN::Tensor*, std::allocator<MNN::Tensor*> > const&, std::vector<MNN::Tensor*, std::allocator<MNN::Tensor*> > const&)::$_2&, int> >::value, void>::type std::__invoke_r<void, MNN::CPUAttention::onExecute(std::vector<MNN::Tensor*, std::allocator<MNN::Tensor*> > const&, std::vector<MNN::Tensor*, std::allocator<MNN::Tensor*> > const&)::$_2&, int>(MNN::CPUAttention::onExecute(std::vector<MNN::Tensor*, std::allocator<MNN::Tensor*> > const&, std::vector<MNN::Tensor*, std::allocator<MNN::Tensor*> > const&)::$_2&, int&&) /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/invoke.h:154:7
+    #10 0x7f65d4778c81 in std::_Function_handler<void (int), MNN::CPUAttention::onExecute(std::vector<MNN::Tensor*, std::allocator<MNN::Tensor*> > const&, std::vector<MNN::Tensor*, std::allocator<MNN::Tensor*> > const&)::$_2>::_M_invoke(std::_Any_data const&, int&&) /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/std_function.h:290:9
+    #11 0x7f65d608b921 in std::function<void (int)>::operator()(int) const /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/std_function.h:590:9
+    #12 0x7f65d49c0274 in MNN::ThreadPool::ThreadPool(int)::$_1::operator()() const /workspace/code/MNN/source/backend/cpu/ThreadPool.cpp:63:29
+    #13 0x7f65d49bff9c in void std::__invoke_impl<void, MNN::ThreadPool::ThreadPool(int)::$_1>(std::__invoke_other, MNN::ThreadPool::ThreadPool(int)::$_1&&) /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/invoke.h:61:14
+    #14 0x7f65d49bff2c in std::__invoke_result<MNN::ThreadPool::ThreadPool(int)::$_1>::type std::__invoke<MNN::ThreadPool::ThreadPool(int)::$_1>(MNN::ThreadPool::ThreadPool(int)::$_1&&) /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/invoke.h:96:14
+    #15 0x7f65d49bff04 in void std::thread::_Invoker<std::tuple<MNN::ThreadPool::ThreadPool(int)::$_1> >::_M_invoke<0ul>(std::_Index_tuple<0ul>) /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/std_thread.h:259:13
+    #16 0x7f65d49bfed4 in std::thread::_Invoker<std::tuple<MNN::ThreadPool::ThreadPool(int)::$_1> >::operator()() /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/std_thread.h:266:11
+    #17 0x7f65d49bfdf8 in std::thread::_State_impl<std::thread::_Invoker<std::tuple<MNN::ThreadPool::ThreadPool(int)::$_1> > >::_M_run() /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/std_thread.h:211:13
+    #18 0x7f65d3ec8252  (/usr/lib/x86_64-linux-gnu/libstdc++.so.6+0xdc252) (BuildId: e37fe1a879783838de78cbc8c80621fa685d58a2)
+    #19 0x7f65d3b50ac2 in start_thread nptl/./nptl/pthread_create.c:442:8
+    #20 0x7f65d3be1a03 in __clone misc/../sysdeps/unix/sysv/linux/x86_64/clone.S:100
+
+0x61500004ad4f is located 7 bytes to the right of 456-byte region [0x61500004ab80,0x61500004ad48)
+allocated by thread T0 here:
+    #0 0x55656862c61e in malloc (/workspace/code/MNN/build/llm_demo+0xac61e) (BuildId: 5f2185528b18e8c779d7ac797dd7f7b8df7019f2)
+    #1 0x7f65d43b126c in MNNMemoryAllocAlign /workspace/code/MNN/source/core/MNNMemoryUtils.cpp:24:30
+    #2 0x7f65d4355009 in MNN::DefaultAllocator::onAlloc(unsigned long, unsigned long) /workspace/code/MNN/source/core/BufferAllocator.cpp:59:25
+    #3 0x7f65d4347bfb in MNN::EagerBufferAllocator::alloc(unsigned long, bool, unsigned long) /workspace/code/MNN/source/core/BufferAllocator.cpp:223:30
+    #4 0x7f65d4787cd4 in MNN::CPUBackend::allocBuffer(unsigned long, MNN::Tensor*, MNN::Backend::StorageType) /workspace/code/MNN/source/backend/cpu/CPUBackend.cpp:591:49
+    #5 0x7f65d4bc55e9 in MNN::AVX2Backend::onAcquire(MNN::Tensor const*, MNN::Backend::StorageType) /workspace/code/MNN/source/backend/cpu/x86_x64/AVX2Backend.cpp:344:16
+    #6 0x7f65d4340670 in MNN::Backend::onAcquireBuffer(MNN::Tensor const*, MNN::Backend::StorageType) /workspace/code/MNN/source/core/Backend.cpp:133:22
+    #7 0x7f65d47600a6 in MNN::CPUAttention::onExecute(std::vector<MNN::Tensor*, std::allocator<MNN::Tensor*> > const&, std::vector<MNN::Tensor*, std::allocator<MNN::Tensor*> > const&) /workspace/code/MNN/source/backend/cpu/CPUAttention.cpp:301:16
+    #8 0x7f65d4435b17 in MNN::Pipeline::execute() /workspace/code/MNN/source/core/Pipeline.cpp:1165:40
+    #9 0x7f65d449dfb1 in MNN::Session::run() const /workspace/code/MNN/source/core/Session.cpp:249:28
+    #10 0x7f65d5413db8 in MNN::Express::StaticModule::_execute() /workspace/code/MNN/express/module/StaticModule.cpp:545:26
+    #11 0x7f65d5414580 in MNN::Express::StaticModule::onForward(std::vector<MNN::Express::VARP, std::allocator<MNN::Express::VARP> > const&) /workspace/code/MNN/express/module/StaticModule.cpp:582:16
+    #12 0x7f65d53d95db in MNN::Express::PipelineModule::onForward(std::vector<MNN::Express::VARP, std::allocator<MNN::Express::VARP> > const&) /workspace/code/MNN/express/module/PipelineModule.cpp:240:57
+    #13 0x7f65d53add01 in MNN::Express::NetModule::onForward(std::vector<MNN::Express::VARP, std::allocator<MNN::Express::VARP> > const&) /workspace/code/MNN/express/module/Module.cpp:224:32
+    #14 0x7f65d5dcce5e in MNN::Transformer::Llm::generate(std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > > const&, int) /workspace/code/MNN/transformers/llm/engine/src/llm.cpp:866:56
+    #15 0x7f65d5dd0f52 in MNN::Transformer::Llm::response(std::vector<std::vector<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >, std::allocator<std::vector<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > > > const&, std::ostream*, char const*, int) /workspace/code/MNN/transformers/llm/engine/src/llm.cpp:1034:5
+    #16 0x55656866b0de in chat(MNN::Transformer::Llm*) /workspace/code/MNN/transformers/llm/engine/demo/llm_demo.cpp:284:18
+    #17 0x55656866cb2b in main /workspace/code/MNN/transformers/llm/engine/demo/llm_demo.cpp:349:9
+    #18 0x7f65d3ae5d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+
+Thread T3 created by T0 here:
+    #0 0x556568615a9c in __interceptor_pthread_create (/workspace/code/MNN/build/llm_demo+0x95a9c) (BuildId: 5f2185528b18e8c779d7ac797dd7f7b8df7019f2)
+    #1 0x7f65d3ec8328 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) (/usr/lib/x86_64-linux-gnu/libstdc++.so.6+0xdc328) (BuildId: e37fe1a879783838de78cbc8c80621fa685d58a2)
+    #2 0x7f65d49bfb50 in void __gnu_cxx::new_allocator<std::thread>::construct<std::thread, MNN::ThreadPool::ThreadPool(int)::$_1>(std::thread*, MNN::ThreadPool::ThreadPool(int)::$_1&&) /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/ext/new_allocator.h:162:23
+    #3 0x7f65d49bf55c in void std::allocator_traits<std::allocator<std::thread> >::construct<std::thread, MNN::ThreadPool::ThreadPool(int)::$_1>(std::allocator<std::thread>&, std::thread*, MNN::ThreadPool::ThreadPool(int)::$_1&&) /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/alloc_traits.h:516:8
+    #4 0x7f65d49bf85d in void std::vector<std::thread, std::allocator<std::thread> >::_M_realloc_insert<MNN::ThreadPool::ThreadPool(int)::$_1>(__gnu_cxx::__normal_iterator<std::thread*, std::vector<std::thread, std::allocator<std::thread> > >, MNN::ThreadPool::ThreadPool(int)::$_1&&) /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/vector.tcc:449:4
+    #5 0x7f65d49b6fbe in void std::vector<std::thread, std::allocator<std::thread> >::emplace_back<MNN::ThreadPool::ThreadPool(int)::$_1>(MNN::ThreadPool::ThreadPool(int)::$_1&&) /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/vector.tcc:121:4
+    #6 0x7f65d49b6703 in MNN::ThreadPool::ThreadPool(int) /workspace/code/MNN/source/backend/cpu/ThreadPool.cpp:58:18
+    #7 0x7f65d49b52bf in MNN::ThreadPool::init(int, unsigned long, MNN::ThreadPool*&) /workspace/code/MNN/source/backend/cpu/ThreadPool.cpp:26:35
+    #8 0x7f65d477d3a7 in MNN::CPURuntime::_resetThreadPool() const /workspace/code/MNN/source/backend/cpu/CPUBackend.cpp:120:25
+    #9 0x7f65d477f872 in MNN::CPURuntime::onReset(int, MNN::BackendConfig const*, bool) /workspace/code/MNN/source/backend/cpu/CPUBackend.cpp:219:5
+    #10 0x7f65d51719f6 in MNN::Express::Executor::_getOrCreateRuntime(MNNForwardType, MNN::BackendConfig const*, int, bool) /workspace/code/MNN/express/Executor.cpp:57:23
+    #11 0x7f65d51772d5 in MNN::Express::Executor::RuntimeManager::createRuntimeManager(MNN::ScheduleConfig const&) /workspace/code/MNN/express/Executor.cpp:324:20
+    #12 0x7f65d5db9405 in MNN::Transformer::Llm::initRuntime() /workspace/code/MNN/transformers/llm/engine/src/llm.cpp:205:27
+    #13 0x7f65d5dbae4e in MNN::Transformer::Llm::load() /workspace/code/MNN/transformers/llm/engine/src/llm.cpp:254:5
+    #14 0x55656866ca94 in main /workspace/code/MNN/transformers/llm/engine/demo/llm_demo.cpp:337:25
+    #15 0x7f65d3ae5d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow /workspace/code/MNN/source/backend/cpu/x86_x64/avxfma/../avx/GemmFunction.hpp:815:9 in void _AVX_MNNPackednMatMulRemainCommon<float>(float*, float const*, float const*, unsigned long, unsigned long const*)
+Shadow bytes around the buggy address:
+  0x0c2a80001550: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c2a80001560: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c2a80001570: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c2a80001580: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c2a80001590: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x0c2a800015a0: 00 00 00 00 00 00 00 00 00[fa]fa fa fa fa fa fa
+  0x0c2a800015b0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c2a800015c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c2a800015d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c2a800015e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c2a800015f0: 00 00 00 00 00 00 00 00 00 fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==271723==ABORTING
+```
+
+日志大致分为四段：
+
+- 第一段发生越界写入的位置，也就是log中WRITE of size 16 at 0x61500004ad4f thread T3，根据开发需求在该部分log的调用栈中找到出现内存越界写入位置的代码：
+	```shell
+	    #2 0x7f65d4772393 in MNN::CPUAttention::onExecute(std::vector<MNN::Tensor*, std::allocator<MNN::Tensor*> > const&, std::vector<MNN::Tensor*, std::allocator<MNN::Tensor*> > const&)::$_1::operator()(int) const /workspace/code/MNN/source/backend/cpu/CPUAttention.cpp:615:25
+	```
+
+	这里发生越界写入位置的是我代码中的这一行
+	```cpp
+	gcore->MNNPackedMatMulRemain((float*)(qkPacked + (loop_e * eP * mPack) * mBytes), (float*)(qReordered + loop_e * qStride0), (float*)keyPtr, remain, shapeParameters, nullptr, nullptr, nullptr, nullptr);
+	```
+
+	往下对应，发现是中间的计算缓冲区内存开小了
+
+- 第二段被越界写入的内存分配的位置，对应log中的allocated by thread T0 here:
+	对应日志中可以看到，内存分配位置在算子CPUAttention::onExecute中的第301行，可以根据需求继续顺着调用栈向上或者向下查代码
+
+	```shell
+	#7 0x7f65d47600a6 in MNN::CPUAttention::onExecute(std::vector<MNN::Tensor*, std::allocator<MNN::Tensor*> > const&, std::vector<MNN::Tensor*, std::allocator<MNN::Tensor*> > const&) /workspace/code/MNN/source/backend/cpu/CPUAttention.cpp:301:16
+	```
+
+- 第三段是发生越界写入的线程被启动的位置，MNN中为CPU设计了线程池，根据需求可以查看对应线程的创建日志。
+
+- 第四段是堆缓冲区溢出的错误报告
 
