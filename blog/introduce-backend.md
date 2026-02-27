@@ -1,3 +1,15 @@
+---
+title: "MNN Backend 介绍"
+date: 2026-02-26T23:00:00+08:00
+lastmod: 2026-02-26T23:00:00+08:00
+draft: false
+description: "介绍MNN框架的后端支持，以及后端有关的核心代码与功能"
+slug: "introduce-backend"
+tags: ["MNN", "Backend", "深度学习"]
+categories: ["MNN端侧部署"]
+comments: true
+---
+
 # MNN 介绍
 本文将介绍MNN框架的后端支持，并介绍后端有关的核心代码与功能。
 - [MNN 介绍](#mnn-介绍)

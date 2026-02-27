@@ -1,3 +1,15 @@
+---
+title: "交叉编译开发环境配置与远程调试"
+date: 2026-02-26T23:00:00+08:00
+lastmod: 2026-02-26T23:00:00+08:00
+draft: false
+description: "以MNN框架为例介绍交叉编译环境中的常见设置"
+slug: "cross-compiler"
+tags: ["MNN", "交叉编译", "Android", "NDK"]
+categories: ["MNN端侧部署"]
+comments: true
+---
+
 # 交叉编译开发环境配置与远程调试
 
 本文以[MNN](https://github.com/alibaba/MNN)框架为例 介绍交叉编译环境中的常见设置。

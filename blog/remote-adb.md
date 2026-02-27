@@ -1,3 +1,15 @@
+---
+title: "远程ADB环境配置"
+date: 2026-02-26T23:00:00+08:00
+lastmod: 2026-02-26T23:00:00+08:00
+draft: false
+description: "通过端口转发链路，让内网开发服务器直接 adb connect 本地手机"
+slug: "remote-adb"
+tags: ["MNN", "ADB", "Android", "远程调试"]
+categories: ["MNN端侧部署"]
+comments: true
+---
+
 # 1. 远程ADB环境配置
 
 
