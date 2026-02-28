@@ -1,0 +1,18 @@
+name: Notify Parent Repo
+
+# 触发条件：推送到 main 或 master 分支时
+on:
+  push:
+    branches: [main, master]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      # 通知父仓库更新子模块
+      - name: Trigger parent update
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.PAT }}
+          repository: huluhuluu/MyBlog
+          event-type: update-submodules
