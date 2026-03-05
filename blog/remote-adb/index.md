@@ -124,7 +124,7 @@ adb connect ip_P:port_P  # 验证无线adb连接，手机的ip可能会随着网
 
 	- 本地L安装：从[github-relase](https://github.com/EasyTier/EasyTier/releases)界面，选择对应版本，如winodws选择[easytier-gui_2.5.0_x64-setup.exe](https://github.com/EasyTier/EasyTier/releases/download/v2.5.0/easytier-gui_2.5.0_x64-setup.exe) 随后手动安装
 
-	![image-20260203115615448](../png/remote-adb/easytier_install.png)打开EasyTier, 左下角可以切换中文模式
+	![image-20260203115615448](png/easytier_install.png)打开EasyTier, 左下角可以切换中文模式
 	![image-20260203115815370](../png/remote-adb/easytier_gui.png)
 
 	设置网络名称和密码，然后点击创建新网络，只有网络名和密码匹配才会加入同一个网络，所以网络名设置不要太简单。
