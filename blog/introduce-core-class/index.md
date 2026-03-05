@@ -2,7 +2,7 @@
 title: "MNN 核心类介绍"
 date: 2026-02-26T23:00:00+08:00
 lastmod: 2026-02-26T23:00:00+08:00
-draft: true
+draft: false
 description: "深入分析MNN框架的核心类设计理念、实现细节以及它们之间的相互关系"
 slug: "introduce-core-class"
 tags: ["MNN", "深度学习", "C++"]
