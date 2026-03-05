@@ -30,8 +30,8 @@ comments: true
 
 | 文章 | 说明 | 状态 |
 |------|------|------|
-| [远程ADB环境配置](./blog/remote-adb.md) | 通过端口转发链路，让内网服务器直连本地手机 | ✅ 完成 |
-| [交叉编译环境配置](./blog/cross-compiler.md) | Android NDK 配置、Clangd 配置、远程调试 | ✅ 完成 |
+| [远程ADB环境配置](./blog/remote-adb/) | 通过端口转发链路，让内网服务器直连本地手机 | ✅ 完成 |
+| [交叉编译环境配置](./blog/cross-compiler/) | Android NDK 配置、Clangd 配置、远程调试 | ✅ 完成 |
 
 ---
 
@@ -41,9 +41,9 @@ comments: true
 
 | 文章 | 说明 | 状态 |
 |------|------|------|
-| [Backend 介绍](./blog/introduce-backend.md) | CPU/OpenCL/Vulkan 等后端的作用和选择 | ✅ 完成 |
-| [工厂模式介绍](./blog/introduce-factory.md) | MNN 中工厂模式的设计与应用 | 📝 TODO |
-| [核心类介绍](./blog/introduce-core-class.md) | VARP、Expr、Op 等关键类的设计 | 🚧 WIP |
+| [Backend 介绍](./blog/introduce-backend/) | CPU/OpenCL/Vulkan 等后端的作用和选择 | ✅ 完成 |
+| [工厂模式介绍](./blog/introduce-factory/) | MNN 中工厂模式的设计与应用 | 📝 TODO |
+| [核心类介绍](./blog/introduce-core-class/) | VARP、Expr、Op 等关键类的设计 | 🚧 WIP |
 
 ---
 
@@ -53,9 +53,9 @@ comments: true
 
 | 文章 | 说明 | 状态 |
 |------|------|------|
-| [LLM 配置](./blog/llm-config.md) | 模型配置、量化配置 | 📝 TODO |
-| [LLM 加载流程](./blog/llm-load.md) | 模型文件到推理就绪的完整过程 | 📝 TODO |
-| [LLM 推理流程](./blog/llm-infer.md) | Token 处理、KV Cache 管理 | 📝 TODO |
+| [LLM 配置](./blog/llm-config/) | 模型配置、量化配置 | 📝 TODO |
+| [LLM 加载流程](./blog/llm-load/) | 模型文件到推理就绪的完整过程 | 📝 TODO |
+| [LLM 推理流程](./blog/llm-infer/) | Token 处理、KV Cache 管理 | 📝 TODO |
 
 ---
 

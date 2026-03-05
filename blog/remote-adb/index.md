@@ -125,14 +125,14 @@ adb connect ip_P:port_P  # 验证无线adb连接，手机的ip可能会随着网
 	- 本地L安装：从[github-relase](https://github.com/EasyTier/EasyTier/releases)界面，选择对应版本，如winodws选择[easytier-gui_2.5.0_x64-setup.exe](https://github.com/EasyTier/EasyTier/releases/download/v2.5.0/easytier-gui_2.5.0_x64-setup.exe) 随后手动安装
 
 	![image-20260203115615448](png/easytier_install.png)打开EasyTier, 左下角可以切换中文模式
-	![image-20260203115815370](../png/remote-adb/easytier_gui.png)
+	![image-20260203115815370](png/easytier_gui.png)
 
 	设置网络名称和密码，然后点击创建新网络，只有网络名和密码匹配才会加入同一个网络，所以网络名设置不要太简单。
 
-	![image-20260203120344490](../png/remote-adb/easytier_gui_config.png)
+	![image-20260203120344490](png/easytier_gui_config.png)
 
 	滑倒底下 运行网络，本地节点就启动了
-	![image-20260203120632521](../png/remote-adb/easytier_gui_run.png)
+	![image-20260203120632521](png/easytier_gui_run.png)
 
 	- 服务器S节点安装
 
@@ -155,7 +155,7 @@ adb connect ip_P:port_P  # 验证无线adb连接，手机的ip可能会随着网
 		| $ip_{L1}$ | -----                            | relay(2) | 18.00   | 0.0% | 0 B      | 0 B     |        | Symmetric  | 2.5.0-88a45d11~ |
 
 		在本地的gui界面可以看见两个节点 和对应IP, 这里测试的docker不支持TUN所以无法打通，自己搭建需要有docker权限且支持TUN
-		![image-20260203121823368](../png/remote-adb/easytier_gui_ip.png)
+		![image-20260203121823368](png/easytier_gui_ip.png)
 
 - 步骤2：登录TailScale，获取本地L和服务器S分配的ip, 分别记录为$ip_{L1}$ 和$ip_{S1}$。EasyTier直接在界面中获取。
 
