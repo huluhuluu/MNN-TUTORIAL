@@ -8,6 +8,7 @@ slug: "introduce-core-class"
 tags: ["MNN", "深度学习", "C++"]
 categories: ["MNN端侧部署"]
 comments: true
+math: true
 ---
 
 # MNN 介绍

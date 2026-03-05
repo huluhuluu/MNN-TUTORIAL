@@ -8,6 +8,7 @@ slug: "mnn-tutorial"
 tags: ["MNN", "端侧部署", "LLM"]
 categories: ["MNN端侧部署"]
 comments: true
+math: true
 ---
 
 # MNN端侧部署教程
