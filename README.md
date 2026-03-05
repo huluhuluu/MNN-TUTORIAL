@@ -2,7 +2,7 @@
 title: "MNN端侧部署教程"
 date: 2026-02-26T23:00:00+08:00
 lastmod: 2026-02-26T23:00:00+08:00
-draft: false
+draft: true
 description: "MNN端侧推理部署--从环境配置到读懂代码"
 slug: "mnn-tutorial"
 tags: ["MNN", "端侧部署", "LLM"]
