@@ -5,8 +5,9 @@ lastmod: 2026-02-26T23:00:00+08:00
 draft: true
 description: "介绍MNN-LLM的配置方式，包括模型配置、量化配置等"
 slug: "llm-config"
-tags: ["MNN", "LLM", "量化"]
-categories: ["MNN端侧部署"]
+tags: ["mnn"]
+categories: ["mnn"]
+
 comments: true
 ---
 
@@ -21,3 +22,4 @@ TODO
 ## 2. 量化配置
 
 TODO
+

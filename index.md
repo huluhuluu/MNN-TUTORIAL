@@ -1,21 +1,22 @@
 ---
-title: "MNN端侧部署教程"
+title: "mnntutorial"
 date: 2026-02-26T23:00:00+08:00
 lastmod: 2026-02-26T23:00:00+08:00
 draft: false
 description: "MNN端侧推理部署--从环境配置到读懂代码"
 slug: "mnn-tutorial"
-tags: ["MNN", "端侧部署", "LLM"]
-categories: ["MNN端侧部署"]
+tags: ["mnn"]
+categories: ["mnn"]
+
 comments: true
 math: true
 ---
 
-# MNN端侧部署教程
+# mnntutorial
 
-本教程介绍 [MNN](https://github.com/alibaba/MNN) 端侧推理部署的完整流程，从环境配置到核心概念讲解，再到 LLM 部署实践。
+本tutorial介绍 [MNN](https://github.com/alibaba/MNN) 端侧推理部署的完整流程，从环境配置到核心概念讲解，再到 LLM 部署实践。
 
-## 教程概览
+## tutorial概览
 
 | 阶段 | 内容 | 文章数 |
 |------|------|--------|
@@ -65,3 +66,4 @@ math: true
 - **MNN 官方仓库**：[alibaba/MNN](https://github.com/alibaba/MNN)
 - **MNN 文档**：[mnn-docs](https://mnn-docs.readthedocs.io/)
 - **问题反馈**：[GitHub Issues](https://github.com/huluhuluu/MNN-TUTORIAL/issues)
+
