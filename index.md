@@ -7,6 +7,8 @@ description: "MNN端侧推理部署--从环境配置到读懂代码"
 slug: "mnn-tutorial"
 tags: ["mnn"]
 categories: ["mnn"]
+build:
+  list: never
 
 comments: true
 math: true

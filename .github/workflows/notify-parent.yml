@@ -1,17 +1,21 @@
 name: Notify Parent Repo
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 # 触发条件：推送到 main 或 master 分支时
 on:
   push:
-    branches: [main, master]
-  workflow_dispatch:  # 手动触发按键
+    branches: [main]
+  workflow_dispatch:
+
 jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
       # 通知父仓库更新子模块
       - name: Trigger parent update
-        uses: peter-evans/repository-dispatch@v3
+        uses: peter-evans/repository-dispatch@v4
         with:
           token: ${{ secrets.PAT }}
           repository: huluhuluu/MyBlog
