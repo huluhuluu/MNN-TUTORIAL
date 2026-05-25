@@ -28,7 +28,7 @@ math: true
 
 ## 1. ANDROID_NDK配置
 
-可执行文件在手机侧CPU上运行，需要源代码在编译过程中与ANDROID_NDK 进行交叉编译
+交叉编译的流程是在机器A上编译生成在机器B上运行的可执行文件，随后把可执行文件推送到机器B运行，而这里机器A和机器B的系统架构不同，所以需要在编译过程中指定编译器和相关工具链。对于安卓开发来说，交叉编译工具链是[ANDROID_NDK](https://developer.android.google.cn/ndk/downloads?hl=zh-cn)。
 
 - 步骤1：下载最新版软件包,  [获取地址](https://developer.android.google.cn/ndk/downloads?hl=zh-cn)(选择对应平台最新稳定版, 点击后出现 “Android 软件开发套件许可协议”，勾选后鼠标右键下载按钮可以复制下载链接)
 

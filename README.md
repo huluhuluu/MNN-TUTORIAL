@@ -1,5 +1,5 @@
 ---
-title: "mnntutorial"
+title: "mnn-tutorial"
 date: 2026-02-26T23:00:00+08:00
 lastmod: 2026-02-26T23:00:00+08:00
 draft: true
@@ -11,17 +11,17 @@ categories: ["mnn"]
 comments: true
 ---
 
-# mnntutorial
+# mnn-tutorial
 
-本tutorial介绍 [MNN](https://github.com/alibaba/MNN) 端侧推理部署的完整流程，从环境配置到核心概念讲解，再到 LLM 部署实践。
+本tutorial介绍 [MNN](https://github.com/alibaba/MNN) 端侧推理部署的完整流程，包括环境配置&运行、核心概念讲解、代码流畅梳理。
 
 ## tutorial概览
 
 | 阶段 | 内容 | 文章数 |
 |------|------|--------|
-| 环境配置 | 远程调试、交叉编译 | 2 篇 |
+| 环境配置 | 远程调试、交叉编译、设备运行 | 3 篇 |
 | 核心概念 | Backend、工厂模式、核心类 | 3 篇 |
-| MNN-LLM | 配置、加载、推理 | 3 篇 |
+| MNN-LLM | 配置、加载、推理 | 4 篇 |
 
 ---
 
@@ -33,6 +33,7 @@ comments: true
 |------|------|------|
 | [远程ADB环境配置](blog/remote-adb/index.md) | 通过端口转发链路，让内网服务器直连本地手机 | ✅ 完成 |
 | [交叉编译环境配置](blog/cross-compiler/index.md) | Android NDK 配置、Clangd 配置、远程调试 | ✅ 完成 |
+| [llm_demo 交叉编译与运行](blog/llm-demo-run/index.md) | 以 `llm_demo` 为例，记录从编译到设备运行的最短路径 | ✅ 完成 |
 
 ---
 
@@ -42,9 +43,9 @@ comments: true
 
 | 文章 | 说明 | 状态 |
 |------|------|------|
-| [Backend 介绍](blog/introduce-backend/index.md) | CPU/OpenCL/Vulkan 等后端的作用和选择 | ✅ 完成 |
-| [工厂模式介绍](blog/introduce-factory/index.md) | MNN 中工厂模式的设计与应用 | 📝 TODO |
 | [核心类介绍](blog/introduce-core-class/index.md) | VARP、Expr、Op 等关键类的设计 | 🚧 WIP |
+| [Backend 介绍](blog/introduce-backend/index.md) | CPU/OpenCL/Vulkan 等后端的作用和选择 | ✅ 完成 |
+| [工厂模式介绍](blog/introduce-factory/index.md) | MNN 中工厂模式的设计与应用 | ✅ 完成 |
 
 ---
 
@@ -54,9 +55,10 @@ comments: true
 
 | 文章 | 说明 | 状态 |
 |------|------|------|
-| [LLM 配置](blog/llm-config/index.md) | 模型配置、量化配置 | 📝 TODO |
-| [LLM 加载流程](blog/llm-load/index.md) | 模型文件到推理就绪的完整过程 | 📝 TODO |
-| [LLM 推理流程](blog/llm-infer/index.md) | Token 处理、KV Cache 管理 | 📝 TODO |
+| [LLM 配置](blog/llm-config/index.md) | 模型配置、量化配置 | 🚧 WIP |
+| [LLM 加载流程](blog/llm-load/index.md) | 模型文件到推理就绪的完整过程 | 🚧 WIP |
+| [LLM 推理流程](blog/llm-infer/index.md) | Token 处理、KV Cache 管理 | 🚧 WIP |
+| [Eagle 推理流程](blog/llm-eagle-infer/index.md) | speculative decoding 中 Eagle 路径的 draft、验证与 KV 回写 | 🚧 WIP |
 
 ---
 
@@ -65,4 +67,3 @@ comments: true
 - **MNN 官方仓库**：[alibaba/MNN](https://github.com/alibaba/MNN)
 - **MNN 文档**：[mnn-docs](https://mnn-docs.readthedocs.io/)
 - **问题反馈**：[GitHub Issues](https://github.com/huluhuluu/MNN-TUTORIAL/issues)
-

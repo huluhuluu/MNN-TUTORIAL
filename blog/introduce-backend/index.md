@@ -11,10 +11,10 @@ categories: ["mnn"]
 comments: true
 ---
 
-# MNN 介绍
+# MNN 后端介绍
 本文将介绍MNN框架的后端支持，并介绍后端有关的核心代码与功能。
-- [MNN 介绍](#mnn-介绍)
-  - [1. 后端](#1-后端)
+- [MNN 后端介绍](#mnn-后端介绍)
+  - [1. 后端介绍](#1-后端介绍)
     - [1.1 CPU后端系列](#11-cpu后端系列)
       - [1.1.1 x86/x64-SSE4.1后端](#111-x86x64-sse41后端)
       - [1.1.2 x86/x64-AVX2后端](#112-x86x64-avx2后端)
@@ -33,15 +33,15 @@ comments: true
       - [1.3.3 NNAPI后端](#133-nnapi后端)
       - [1.3.4 QNN后端](#134-qnn后端)
       - [1.3.5 NeuroPilot 后端](#135-neuropilot-后端)
-    - [1.4 后端相关目录结构](#14-后端相关目录结构)
-      - [1.4.1 后端文件说明](#141-后端文件说明)
-        - [1.4.1.1 Runtime - 运行时抽象层](#1411-runtime---运行时抽象层)
-        - [1.4.1.2 Backend - 后端抽象基类](#1412-backend---后端抽象基类)
-        - [1.4.1.3 Execution - 执行器抽象基类](#1413-execution---执行器抽象基类)
-      - [1.4.2 后端调用设置](#142-后端调用设置)
-        - [1.4.2.1 Core Function](#1421-core-function)
+  - [2. 后端代码](#2-后端代码)
+    - [2.1 后端文件说明](#21-后端文件说明)
+      - [2.1.1 Runtime - 运行时抽象层](#211-runtime---运行时抽象层)
+      - [2.1.2 Backend - 后端抽象基类](#212-backend---后端抽象基类)
+      - [2.1.3 Execution - 执行器抽象基类](#213-execution---执行器抽象基类)
+    - [2.2 后端调用设置](#22-后端调用设置)
+      - [2.2.1 Core Function](#221-core-function)
 
-## 1. 后端
+## 1. 后端介绍
 
 [MNN](https://github.com/alibaba/MNN)是阿里巴巴开源的高效轻量级深度学习推理框架，提供了较为**全面的后端支持**。 主要包括: 
 
@@ -246,25 +246,25 @@ QNN（Qualcomm Neural Network SDK）是高通开发的AI推理SDK，专为高通
 - 搭载天玑系列处理器的设备
 - 支持 NeuroPilot SDK 且 Android 10+（API 29+）的联发科平台设备
 
-### 1.4 后端相关目录结构
+## 2. 后端代码
 
 MNN的后端实现集中在`source/backend/`目录中：
 
-```
+```text
 source/backend/
-├── cpu/          # CPU通用后端
-|    └───x86_x64
-|    		└─── avx/          # x86 AVX2优化
-|    		└─── avx512/       # x86 AVX512优化
-|    		└─── avxfma/       # x86 AVXfma 支持Fused Multiply-Add
-|	 		└─── sse/          # x86 SSE优化
-|    └─── arm
-|    		└───arm32		   # 32为arm指令支持 如ARMv7-A后端
-|    		└───arm64		   # 64为arm指令支持
-├── arm82/        # ARMv8.2 支持
-|    └─── asm
-|    		└───arm32		   # 32为arm指令兼容
-|    		└───arm64		   # 64为arm指令支持
+├── cpu/              # CPU 通用后端
+│   ├── x86_x64/
+│   │   ├── avx/      # x86 AVX2 优化
+│   │   ├── avx512/   # x86 AVX512 优化
+│   │   ├── avxfma/   # x86 AVX FMA 优化
+│   │   └── sse/      # x86 SSE 优化
+│   └── arm/
+│       ├── arm32/    # 32 位 ARM 指令支持，如 ARMv7-A
+│       └── arm64/    # 64 位 ARM 指令支持
+├── arm82/            # ARMv8.2 支持
+│   └── asm/
+│       ├── arm32/    # 32 位 ARM 指令兼容
+│       └── arm64/    # 64 位 ARM 指令支持
 ├── nnapi/        # NNAPI后端
 ├── metal/        # Metal后端（iOS/macOS）
 ├── opencl/       # OpenCL后端
@@ -274,43 +274,60 @@ source/backend/
 ├── tensorrt
 ├── coreml/       # CoreML后端
 ├── hiai/         # HIAI后端
-└── qnn/          # QNN后端
-└── neuropilot/   # neuropilot后端
+├── qnn/          # QNN后端
+└── neuropilot/   # NeuroPilot后端
 ```
 
 相应的后端需要设置指定的[编译宏](https://mnn-docs.readthedocs.io/en/latest/compile/cmake.html)，例如-DMNN_OPENCL=true表示启用OPENCL后端支持，但是具体调用需要在程序中设置，例如MNN-LLM需要设置… 具体见后续的代码梳理
 
-#### 1.4.1 后端文件说明
+### 2.1 后端文件说明
 
 MNN 的后端系统由以下几个核心类组成，大致执行顺序如下：
 
+```text
+创建关系
+
+Runtime
+├── 表示一类硬件运行时，例如 `CPURuntime`、`OpenCLRuntime`
+└── onCreate(...)
+    ↓
+Backend
+├── 表示一次具体的执行层后端实例，例如 `CPUBackend`、`OpenCLBackend`
+└── onCreate(inputs, outputs, op)
+    ↓
+Execution
+└── 表示单个算子的具体执行对象，例如 `CPUConvolution`、`CPUAttention`
+
+
+执行关系
+
+Shape 推导
+`SizeComputer::computeOutputSize()`
+
+Resize 阶段
+`Backend::onResizeBegin()`
+        ↓
+`Execution::onResize()`
+        ↓
+`Backend::onResizeEnd()`
+
+Execute 阶段
+`Backend::onExecuteBegin()`
+        ↓
+`Execution::onExecute()`
+        ↓
+`Backend::onExecuteEnd()`
 ```
-// 1. 创建 下面的关系只表示时间上的顺序依赖关系 如Backend需要调用Runtime创建
-Runtime (运行时,  各类后端继承Runtime,  如class CPURuntime : public Runtime)
-  ↓ 创建
-Backend (后端,  各类后端继承Backend,  如class CPUBackend : public Backend)
-  ↓ 创建
-Execution (执行器,  大部分算子实现是通过继承Execution实现, 如:class CPUAttention : public Execution;
-			小部分为汇编优化过的代码,  如source/backend/cpu/x86_x64/avx512/_AVX512_MNNGemmFloatUnit16x8.S)
-			
-// 2. 重新计算输出形状 在/workspace/code/MNN/source/shape/SizeComputer.hpp内完成 
 
-// 3. 根据输入长度变化 执行的resize操作 下面的关系只表示时间上的顺序依赖关系
-Backend::onResizeBegin (resize的准备阶段)
-  ↓
-Execution::onResize (算子的resize)
-  ↓
-Backend::onResizeEnd (resize的收尾阶段)
+如果只看职责分层，可以把这三个类理解成：
 
-// 4. 执行算子  下面的关系只表示时间上的顺序依赖关系
-Backend::onExecuteBegin (execute的准备阶段)
-  ↓
-Execution::onExecute (算子的execute)
-  ↓
-Backend::onExecuteEnd (execute的收尾阶段)
-```
+- `Runtime` 负责“这一类硬件资源如何初始化、如何配置”；
+- `Backend` 负责“这一轮推理具体使用哪份资源、如何管理张量和中间缓冲区”；
+- `Execution` 负责“某个算子在这个后端上如何真正执行”。
 
-##### 1.4.1.1 Runtime - 运行时抽象层
+它们不是并列关系，而是 `Runtime -> Backend -> Execution` 逐层下沉。前面的 `Shape` 推导则是另一条独立流程，主要由 `source/shape/` 下的 `SizeComputer` 系统完成，执行层会在 `resize` 阶段消费这部分结果。
+
+#### 2.1.1 Runtime - 运行时抽象层
 
 **位置**：`source/core/Backend.hpp`
 
@@ -354,7 +371,7 @@ private:
 };
 ```
 
-##### 1.4.1.2 Backend - 后端抽象基类
+#### 2.1.2 Backend - 后端抽象基类
 
 **位置**：`source/core/Backend.hpp`
 
@@ -413,7 +430,7 @@ private:
 };
 ```
 
-##### 1.4.1.3 Execution - 执行器抽象基类
+#### 2.1.3 Execution - 执行器抽象基类
 
 **位置**：`source/core/Execution.hpp`
 
@@ -446,13 +463,13 @@ public:
 };
 ```
 
-#### 1.4.2 后端调用设置
+### 2.2 后端调用设置
 
 除了后端架构中的 Runtime、Backend、Execution 等核心类，MNN中还有部分特定**基础**算子的优化代码，例如```source/backend/cpu/x86_x64/avx512/_AVX512_MNNGemmFloatUnit16x8.S``` 等 ，前者是汇编代码，后者是opencl的代码。
 
 这里指的算子一般都是底层支持的基础算子，会在更上层的算子中被调用，例如CPUAttention中会调用core->Int8GemmKernel;以使用int8矩阵乘算子
 
-##### 1.4.2.1 Core Function
+#### 2.2.1 Core Function
 
 下面以CPU的后端在实例化过程中调用的不同后端的指令集为例说明，在source/backend/cpu/compute/CommonOptFunction.h中定义了CoreFunctions
 
@@ -545,4 +562,3 @@ ErrorCode CPUAttention::onExecute(const std::vector<Tensor*>& inputs,  const std
 ```
 
 其它后端的底层代码调用可能不同，如opencl后端的.cl代码```source/backend/opencl/execution/cl/attention_buf.cl```等 通过运行时加载 Kernel 源码方式使用。
-
