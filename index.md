@@ -1,7 +1,7 @@
 ---
 title: "mnn-tutorial"
 date: 2026-02-26T23:00:00+08:00
-lastmod: 2026-02-26T23:00:00+08:00
+lastmod: 2026-05-27T12:00:00+08:00
 draft: false
 description: "MNN端侧推理部署--从环境配置到读懂代码"
 slug: "mnn-tutorial"
@@ -22,7 +22,7 @@ math: true
 
 | 阶段 | 内容 | 文章数 |
 |------|------|--------|
-| 环境配置 | 远程调试、交叉编译、设备运行 | 3 篇 |
+| 环境配置 | 远程调试、交叉编译、设备运行 | 4 篇 |
 | 核心概念 | Backend、工厂模式、核心类 | 3 篇 |
 | MNN-LLM | 配置、加载、推理 | 4 篇 |
 
@@ -37,6 +37,7 @@ math: true
 | [远程ADB环境配置](/p/remote-adb/) | 通过端口转发链路，让内网服务器直连本地手机 | ✅ 完成 |
 | [交叉编译环境配置](/p/cross-compiler/) | Android NDK 配置、Clangd 配置、远程调试 | ✅ 完成 |
 | [llm_demo 交叉编译与运行](/p/llm-demo-run/) | 以 `llm_demo` 为例，记录从编译到设备运行的最短路径 | ✅ 完成 |
+| [llm_demo 在 QNN 后端的运行](/p/llm-demo-qnn-run/) | 记录 `llm_demo` 通过 `config_qnn.json` 和 QNN 产物在 Android 设备上运行 | ✅ 完成 |
 
 ---
 

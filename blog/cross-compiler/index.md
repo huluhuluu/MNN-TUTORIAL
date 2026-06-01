@@ -88,6 +88,31 @@ math: true
 	mkdir build64 && cd build64 && ../build_64.sh
 	# 无报错，编译通过
 	```
+- 编译脚本大概如下：
+```bash
+#!/bin/bash
+cmake ../../../ \
+-DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK/build/cmake/android.toolchain.cmake \ # 指定工具链文件
+-DCMAKE_BUILD_TYPE=Release \
+-DANDROID_ABI="arm64-v8a" \ # 指定编译架构
+-DANDROID_STL=c++_static \ 
+-DMNN_USE_LOGCAT=false \
+-DMNN_BUILD_BENCHMARK=ON \
+-DMNN_USE_SSE=OFF \
+-DMNN_BUILD_TEST=ON \
+-DANDROID_NATIVE_API_LEVEL=android-21  \ # 指定安卓API版本
+-DMNN_BUILD_FOR_ANDROID_COMMAND=true \
+-DMNN_LOW_MEMORY=ON \
+-DMNN_BUILD_DIFFUSION=ON \
+-DMNN_BUILD_OPENCV=ON \
+-DMNN_IMGCODECS=ON \
+-DMNN_OPENCL=ON \
+-DMNN_SEP_BUILD=OFF \
+-DMNN_SUPPORT_TRANSFORMER_FUSE=ON \
+-DNATIVE_LIBRARY_OUTPUT=. -DNATIVE_INCLUDE_OUTPUT=. $*
+
+make -j256
+```
 
 ### 1.1 logcat
 

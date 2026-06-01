@@ -19,7 +19,7 @@ comments: true
 
 | 阶段 | 内容 | 文章数 |
 |------|------|--------|
-| 环境配置 | 远程调试、交叉编译、设备运行 | 3 篇 |
+| 环境配置 | 远程调试、交叉编译、设备运行 | 4 篇 |
 | 核心概念 | Backend、工厂模式、核心类 | 3 篇 |
 | MNN-LLM | 配置、加载、推理 | 4 篇 |
 
@@ -34,6 +34,7 @@ comments: true
 | [远程ADB环境配置](blog/remote-adb/index.md) | 通过端口转发链路，让内网服务器直连本地手机 | ✅ 完成 |
 | [交叉编译环境配置](blog/cross-compiler/index.md) | Android NDK 配置、Clangd 配置、远程调试 | ✅ 完成 |
 | [llm_demo 交叉编译与运行](blog/llm-demo-run/index.md) | 以 `llm_demo` 为例，记录从编译到设备运行的最短路径 | ✅ 完成 |
+| [llm_demo 在 QNN 后端的运行](blog/llm-demo-qnn-run/index.md) | 记录 `llm_demo` 通过 `config_qnn.json` 和 QNN 产物在 Android 设备上运行 | ✅ 完成 |
 
 ---
 
