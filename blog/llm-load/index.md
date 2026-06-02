@@ -2,7 +2,7 @@
 title: "LLM 加载流程"
 date: 2026-02-26T23:00:00+08:00
 lastmod: 2026-05-24T23:00:00+08:00
-draft: false
+draft: true
 description: "按当前仓库代码梳理 MNN LLM 从配置读取到模块就绪的完整加载过程"
 slug: "llm-load"
 tags: ["mnn"]
@@ -56,9 +56,27 @@ math: true
   - [1. 从 createLLM 开始](#1-从-createllm-开始)
   - [2. load 的整体主流程](#2-load-的整体主流程)
   - [3. Runtime 初始化](#3-runtime-初始化)
+    - [3.1 先检查必要文件](#31-先检查必要文件)
+    - [3.2 initRuntime 创建 RuntimeManager](#32-initruntime-创建-runtimemanager)
+    - [3.3 setRuntimeHint 把配置下推到底层 Runtime](#33-setruntimehint-把配置下推到底层-runtime)
   - [4. tokenizer、embedding 和 sampler 初始化](#4-tokenizerembedding-和-sampler-初始化)
-  - [5. Module 加载与 ModulePool 初始化](#5-module-加载与-modulepool-初始化)
+    - [4.1 tokenizer 初始化](#41-tokenizer-初始化)
+    - [4.2 context.json 和 chat template](#42-contextjson-和-chat-template)
+    - [4.3 DiskEmbedding 初始化](#43-diskembedding-初始化)
+    - [4.4 Sampler 初始化](#44-sampler-初始化)
+  - [5. Module 加载与执行层装配](#5-module-加载与执行层装配)
+    - [5.1 `Module::Config` 先决定加载策略](#51-moduleconfig-先决定加载策略)
+    - [5.2 `Module::load()` 先读模型，再进入 `loadInternal()`](#52-moduleload-先读模型再进入-loadinternal)
+    - [5.3 `loadInternal()` 把 `Net` 变成 `PipelineModule`](#53-loadinternal-把-net-变成-pipelinemodule)
+    - [5.4 `PipelineModule::load()` 负责把图拆成静态执行模块](#54-pipelinemoduleload-负责把图拆成静态执行模块)
+    - [5.5 `StaticModule` 才是真正持有 `Session` 的执行模块](#55-staticmodule-才是真正持有-session-的执行模块)
+    - [5.6 `Session` 继续向下创建 `Pipeline`](#56-session-继续向下创建-pipeline)
+    - [5.7 `Pipeline` 才开始面对具体算子和 `Execution`](#57-pipeline-才开始面对具体算子和-execution)
+    - [5.8 speculative decoding 的模块准备](#58-speculative-decoding-的模块准备)
+    - [5.9 预分配 `attention mask` 和 `position ids`](#59-预分配-attention-mask-和-position-ids)
   - [6. 加载结束时内存里已经有什么](#6-加载结束时内存里已经有什么)
+    - [6.1 已经就绪的核心对象](#61-已经就绪的核心对象)
+    - [6.2 但还没有真正做的事情](#62-但还没有真正做的事情)
 
 ## 1. 从 createLLM 开始
 

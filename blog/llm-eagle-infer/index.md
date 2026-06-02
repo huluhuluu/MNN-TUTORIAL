@@ -2,7 +2,7 @@
 title: "Eagle 推理流程"
 date: 2026-05-24T23:00:00+08:00
 lastmod: 2026-05-24T23:00:00+08:00
-draft: false
+draft: true
 description: "按当前仓库代码梳理 MNN LLM 中 Eagle speculative decoding 的加载、draft 生成与验证流程"
 slug: "llm-eagle-infer"
 tags: ["mnn"]

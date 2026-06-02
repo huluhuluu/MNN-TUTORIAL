@@ -2,7 +2,7 @@
 title: "LLM 推理流程"
 date: 2026-02-26T23:00:00+08:00
 lastmod: 2026-05-24T23:00:00+08:00
-draft: false
+draft: true
 description: "按当前仓库代码梳理 MNN LLM 的 token 处理、Prefill/Decode 和 KV Cache 管理"
 slug: "llm-infer"
 tags: ["mnn"]
@@ -64,9 +64,14 @@ math: true
     - [2.3 prefill：一次性吃下整段 prompt](#23-prefill一次性吃下整段-prompt)
     - [2.4 decode：按 token 递推生成](#24-decode按-token-递推生成)
   - [3. attention mask 与 position ids](#3-attention-mask-与-position-ids)
+    - [3.1 attention mask](#31-attention-mask)
+    - [3.2 position ids](#32-position-ids)
   - [4. KV Cache 管理](#4-kv-cache-管理)
     - [4.1 KVMeta 是状态核心](#41-kvmeta-是状态核心)
-    - [4.2 reuse_kv、prompt_cache 和 prefix cache](#42-reuse_kvprompt_cache-和-prefix-cache)
+    - [4.2 reuse\_kv、prompt\_cache 和 prefix cache](#42-reuse_kvprompt_cache-和-prefix-cache)
+      - [`reuse_kv`](#reuse_kv)
+      - [`prompt_cache`](#prompt_cache)
+      - [prefix cache](#prefix-cache)
     - [4.3 分块 prefill 与长上下文处理](#43-分块-prefill-与长上下文处理)
   - [5. 整体调用链总结](#5-整体调用链总结)
 
