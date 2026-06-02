@@ -189,8 +189,11 @@ export HEXAGON_ARCH=79
 adb shell "rm -rf $PHONE_DIR && mkdir -p $PHONE_MODEL_DIR"
 
 # 推送二进制和 MNN 动态库
+# 如果是静态链接版本，llm_demo 会比较大，但不需要推其余动态库
 adb push "$BUILD_DIR/llm_demo" "$PHONE_DIR/"
 adb push "$BUILD_DIR/libMNN.so" "$PHONE_DIR/"
+# adb push "$BUILD_DIR/libllm.so" "$PHONE_DIR/"
+# adb push "$BUILD_DIR/libMNN_Express.so" "$PHONE_DIR/"
 
 # 推送 QNN 运行库
 adb push "$QNN_SDK_ROOT/lib/aarch64-android/libQnnHtp.so" "$PHONE_DIR/"
