@@ -118,8 +118,7 @@ conda activate mnn
 uv pip install -r requirements.txt
 ```
 
-再从`MNN`模型目录导出 `QNN` 模型，参数说明[参考](https://mnn-docs.readthedocs.io/en/latest/transformers/llm.html#qnn-llm), `soc`和`Hexagon`版本 [参考](https://docs.qualcomm.com/nav/home/QNN_general_overview.html?product=1601111740010412#supported-snapdragon-devices)
-
+再从`MNN`模型目录导出 `QNN` 模型，参数说明[参考](https://mnn-docs.readthedocs.io/en/latest/transformers/llm.html#qnn-llm), `soc`和`Hexagon`版本 [参考](https://docs.qualcomm.com/nav/home/QNN_general_overview.html?product=1601111740010412#supported-snapdragon-devices)（**这一步导出会出现部分导出错误的节点，MNN会把这部分计算交给CPU处理，导出没有失败**）
 ```bash
 cd ${MNN_ROOT}
 cd transformers/llm/export
