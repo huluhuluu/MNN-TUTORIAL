@@ -1,7 +1,7 @@
 ---
 title: "MNN 核心类介绍"
 date: 2026-02-26T23:00:00+08:00
-lastmod: 2026-05-24T23:00:00+08:00
+lastmod: 2026-06-04T12:00:00+08:00
 draft: false
 description: "深入分析MNN框架的核心类设计理念、实现细节以及它们之间的相互关系"
 slug: "introduce-core-class"
@@ -24,12 +24,11 @@ math: true
     - [1.2 VARP类](#12-varp类)
       - [1.2.1 Variable 类](#121-variable-类)
       - [1.2.2 readMap详解](#122-readmap详解)
-        - [1.2.2.1 第一步：判断是不是叶子节点](#1221-第一步判断是不是叶子节点)
-        - [1.2.2.2 第二步：通过 `requireInfo()` 补齐图上的 shape 信息](#1222-第二步通过-requireinfo-补齐图上的-shape-信息)
-        - [1.2.2.3 第三步：通过 `makeCache()` 把子图收敛成 `ComputeCache`](#1223-第三步通过-makecache-把子图收敛成-computecache)
-        - [1.2.2.4 第四步：`compute()` 触发 `resize` 和 `run`](#1224-第四步compute-触发-resize-和-run)
-        - [1.2.2.5 第五步：`mapOutput()` 把结果映射回 host](#1225-第五步mapoutput-把结果映射回-host)
-        - [1.2.2.6 `readMap()` 的整体流程](#1226-readmap-的整体流程)
+        - [1.2.2.1 shape 推导](#1221-shape-推导)
+        - [1.2.2.2 把子图收敛成 `ComputeCache`](#1222-把子图收敛成-computecache)
+        - [1.2.2.3 `compute()`时 触发 `resize` 和 `run`](#1223-compute时-触发-resize-和-run)
+        - [1.2.2.4 映射结果](#1224-映射结果)
+        - [1.2.2.5 整体流程](#1225-整体流程)
     - [1.3 Expr类](#13-expr类)
       - [1.3.1 requireInfo 详解](#131-requireinfo-详解)
     - [1.4 Tensor类](#14-tensor类)
@@ -40,7 +39,10 @@ math: true
       - [1.5.1 `OpT`结构体](#151-opt结构体)
       - [1.5.2 `Op`结构体](#152-op结构体)
       - [1.5.3 其他细节](#153-其他细节)
-      - [1.5.4 GEMM转卷积算子的理解](#154-gemm转卷积算子的理解)
+      - [1.5.4 GEMM转卷积算子](#154-gemm转卷积算子)
+        - [1.5.4.1 二维卷积](#1541-二维卷积)
+        - [1.5.4.2 `im2col`](#1542-im2col)
+        - [1.5.4.3 `GEMM`等价成卷积](#1543-gemm等价成卷积)
     - [1.6 Pipeline类](#16-pipeline类)
     - [1.7 Session类](#17-session类)
     - [1.8 Executor \& ExecutorScope类](#18-executor--executorscope类)
@@ -212,7 +214,7 @@ private:
 
 ####  1.2.2 readMap详解
 
-`Variable::readMap<T>()` 只是模板包装，真正逻辑在 `express/Expr.cpp` 的 `Variable::readInternal()`。这条调用链基本就是 `Express` 图执行的主入口之一，顺着它往下看，能把 `shape` 推导、缓存构建、`Session` 执行和结果回传这几步串起来。
+`Variable::readMap<T>()` 只是模板包装，真正逻辑在 `express/Expr.cpp` 的 `Variable::readInternal()`。这条调用链基本就是 `Express` 图执行的主入口之一，顺着它往下看，能把 `shape` 推导、缓存构建、`Session` 执行和结果回传这几步串联，最后会返回数据指针用于数据读取。
 
 ```cpp
 // express/Expr.cpp
@@ -238,34 +240,10 @@ void* Variable::readInternal(bool forShape) {
                             mFrom->mInside->mOutputTensors[mFromIndex]);
 }
 ```
+这里的 `mFrom->get()` 实际对应当前 `Expr` 持有的 `Op`。如果它是空，说明当前 `Variable` 对应的不是普通计算算子，而是输入、常量或者可训练参数这类叶子节点。这种情况下不需要再走调度和执行流程，直接返回已有 `Tensor` 的 host 指针。(实际代码还有额外处理：如果底层数据在其它设备后端上，或带量化属性，会先构造一个 host `Tensor`把数据同步回 CPU)
 
-这一段如果按代码路径展开，可以分成下面几步。
-
-#####  1.2.2.1 第一步：判断是不是叶子节点
-
-```cpp
-if (nullptr == mFrom->get()) {
-    // 输入 / 常量 / 可训练参数，直接走已有 Tensor
-    return mFrom->inside()->mOutputTensors[0]->buffer().host;
-}
-```
-
-这里的 `mFrom->get()` 实际对应当前 `Expr` 持有的 `Op`。如果它是空，说明当前 `Variable` 对应的不是普通计算算子，而是输入、常量或者可训练参数这类叶子节点。这种情况下不需要再走调度和执行流程，直接返回已有 `Tensor` 的 host 指针即可。
-
-实际代码里这里还有一层额外处理：如果底层数据在其它设备后端上，或者带量化属性，会先构造一个 host `Tensor`，调用 `copyToHostTensor()` 把数据同步回 CPU，再返回 host 地址。也就是说，`readMap()` 对调用方暴露出来的始终是“可直接读的 CPU 指针”。
-
-#####  1.2.2.2 第二步：通过 `requireInfo()` 补齐图上的 shape 信息
-
-普通算子节点会先进入：
-
-```cpp
-auto res = mFrom->requireInfo();
-if (false == res) {
-    return nullptr;
-}
-```
-
-`Expr::requireInfo()` 的核心作用不是执行计算，而是确保当前节点以及依赖输入的 `shape / dtype / format` 都已经准备好。对应代码在 `express/Expr.cpp`：
+##### 1.2.2.1 shape 推导
+接下来普通算子节点会先进入：`Expr::requireInfo()`，确保当前节点以及依赖输入的 `shape / dtype / format` 都已经准备好。对应代码在 `express/Expr.cpp`：
 
 ```cpp
 bool Expr::requireInfo() {
@@ -275,6 +253,7 @@ bool Expr::requireInfo() {
     if (nullptr == mOp) {
         return !HasUnknownDim(mInside->mOutputInfos[0].dim);
     }
+    // 递归补齐所有的输入链节点信息
     for (int i = 0; i < mInputs.size(); ++i) {
         auto inputInfo = mInputs[i]->getInfo();
         if (nullptr == inputInfo) {
@@ -303,7 +282,7 @@ bool Expr::requireInfo() {
 - `requireInfo()` 会递归调用输入节点的 `getInfo()`，因此会沿着当前 `Expr` 一直向前，把依赖链上的 shape 信息逐层补齐；
 - 如果某些算子的 shape 推导依赖输入内容而不只是维度，比如部分 `shape` 相关算子，那么它会通过 `readInternal(true)` 先把输入内容读出来。
 
-真正做 shape 推导的是 `Executor::computeInfo()`：
+接下来真正做执行shape 推导的是 `Executor::computeInfo()`：
 
 ```cpp
 // express/Executor.cpp
@@ -328,13 +307,14 @@ ErrorCode Executor::computeInfo(Expr* expr) {
 }
 ```
 
-这一层最终会进入 `SizeComputer::computeOutputSize()`，也就是前面讲过的 shape 工厂系统。执行完成后，当前 `Expr` 的输出 `Tensor` 和 `Variable::Info` 会同步更新，后面才能继续构建执行缓存。
+这一层最终会进入 `SizeComputer::computeOutputSize()`，也就是前面讲过的 shape 工厂系统，各个算子会根据输入信息推导输出维度。执行完成后，当前 `Expr` 的输出 `Tensor` 和 `Variable::Info` 会同步更新，后面才能继续构建执行缓存。
 
-#####  1.2.2.3 第三步：通过 `makeCache()` 把子图收敛成 `ComputeCache`
+#####  1.2.2.2 把子图收敛成 `ComputeCache`
 
-shape 信息准备好之后，`readInternal()` 会检查当前节点有没有现成的执行缓存：
+shape 信息准备好之后，`Variable::readInternal()` 函数会继续检查当前节点有没有现成的执行缓存：
 
 ```cpp
+// express/Expr.cpp
 auto cache = mFrom->inside()->mCache;
 if (nullptr == cache) {
     ExecutorScope::Current()->makeCache({mFrom}, forShape);
@@ -342,7 +322,7 @@ if (nullptr == cache) {
 }
 ```
 
-这里的 `makeCache()` 会把“当前输出节点往前依赖到的整段子图”收敛成一个临时 `Session`，对应 `express/Executor.cpp` 里的 `Executor::_makeCache()`。这个过程主要做四件事：
+然后调用 `makeCache()` 把未缓存算子的整段子图收敛成一个临时 `Session类`，对应 `express/Executor.cpp` 里的 `Executor::_makeCache()`函数。这个过程主要做四件事：
 
 1. 从目标 `Expr` 开始反向 DFS，找到所有真正参与本次输出计算的依赖节点；
 2. 按依赖顺序把每个 `Expr` 改写成 `Schedule::OpCacheInfo`，整理出输入输出 `Tensor`；
@@ -376,19 +356,11 @@ void Executor::_makeCache(const std::vector<EXPRP>& expr, bool forceCPU) {
 }
 ```
 
-所以这里的 `ComputeCache` 可以理解成“某一段 `Expr` 子图对应的可执行快照”，里面最重要的成员就是 `mSession`。
+最后这里的 `ComputeCache` 是“某一段 `Expr` 子图对应的可执行快照”，里面最重要的成员就是 `mSession`，后面将用于计算。
 
-#####  1.2.2.4 第四步：`compute()` 触发 `resize` 和 `run`
+#####  1.2.2.3 `compute()`时 触发 `resize` 和 `run`
 
-缓存建好以后，`readInternal()` 会调用：
-
-```cpp
-if (NO_ERROR != cache->compute()) {
-    return nullptr;
-}
-```
-
-`ComputeCache::compute()` 在 `express/Utils.cpp` 里，核心逻辑如下：
+缓存建好以后，`Variable::readInternal()` 会调用`cache->compute()`在 `express/Utils.cpp` 里，核心逻辑如下：
 
 ```cpp
 ErrorCode Executor::ComputeCache::compute() {
@@ -451,16 +423,9 @@ ErrorCode Session::run() const {
 
 继续往下就是 `Pipeline::execute()`，再到每个算子的 `Execution::onExecute()`。也就是说，`readMap()` 表面上是“读一个变量”，底下实际上已经把整段子图执行完了。
 
-#####  1.2.2.5 第五步：`mapOutput()` 把结果映射回 host
+#####  1.2.2.4 映射结果
 
-执行完成后，`readInternal()` 最后一步是：
-
-```cpp
-return cache->mapOutput(mFrom->mInside->mCacheOffset + mFromIndex,
-                        mFrom->mInside->mOutputTensors[mFromIndex]);
-```
-
-这里的 `mCacheOffset + mFromIndex` 用来定位当前输出在临时 `Session` 里的目标 `Tensor`。`mapOutput()` 对应代码如下：
+执行完成后，`Variable::readInternal()` 最后一步是`cache->mapOutput()`,通过`mCacheOffset + mFromIndex` 用来定位当前输出在临时 `Session` 里的目标 `Tensor`(前面1.2.2.2时记录的位置)。`mapOutput()` 对应代码如下：
 
 ```cpp
 // express/Utils.cpp
@@ -482,45 +447,82 @@ void* Executor::ComputeCache::mapOutput(int offset, Tensor* dest) {
 - 如果结果本身就在 host 内存上，直接返回底层指针；
 - 如果结果在其它后端设备上，例如 GPU，或者需要量化相关处理，就先复制回 host `Tensor`，再返回 host 指针。
 
-#####  1.2.2.6 `readMap()` 的整体流程
+#####  1.2.2.5 整体流程
 
-把上面的步骤合起来，`readMap()` 的完整调用路径大致如下：
+把上面的步骤合起来，`readMap()` 的完整调用路径可以按函数栈层次看。主路径从 `Variable::readInternal()` 开始，里面分出四段：先补 shape，再构建 `ComputeCache`，然后通过临时 `Session` 执行，最后把输出 `Tensor` 映射成 host 指针。
 
 ```text
-`Variable::readMap<T>()`
-    ↓
-`Variable::readInternal(false)`
-    ↓
-判断是否为叶子节点
-    ↓
-`Expr::requireInfo()`
-    ↓
-`Executor::computeInfo()`
-    ↓
-`SizeComputer::computeOutputSize()`
-    ↓
-`Executor::makeCache()`
-    ↓
-`Executor::_makeCache()`
-    ↓
-构造 `ComputeCache` + 临时 `Session`
-    ↓
-`ComputeCache::compute()`
-    ↓
-`ComputeCache::resize()` / `Session::resize()`
-    ↓
-`Session::run()`
-    ↓
-`Pipeline::execute()`
-    ↓
-`Execution::onExecute()`
-    ↓
-`ComputeCache::mapOutput()`
-    ↓
-返回 host 可读指针
+Variable::readMap<T>()
+# 模板接口，只负责把 readInternal() 返回的 void* 转成 T*
+└── Variable::readInternal(forShape = false)
+    # readMap 的真正入口；forShape=false 表示这次是为了读取最终数据
+    ├── [叶子节点] mFrom->get() == nullptr
+    │   # 没有关联 Op，说明是 Input / Const / Trainable 这类已持有 Tensor 的节点
+    │   └── 直接返回 mOutputTensors[0]->buffer().host
+    │
+    ├── Expr::requireInfo()
+    │   # 普通算子节点先保证输出 shape / dtype / format 已经推导完成
+    │   ├── 递归补齐输入 shape
+    │   │   # 当前 Expr 的 shape 依赖所有输入 Variable 的 Info
+    │   │   └── input VARP -> Variable::getInfo()
+    │   │       └── input Expr -> Expr::requireInfo()
+    │   ├── [shape 依赖输入内容]
+    │   │   # 部分 shape 算子不只依赖维度，还要先读输入 Tensor 的真实内容
+    │   │   └── input VARP -> Variable::readInternal(forShape = true)
+    │   └── ExecutorScope::Current()->computeInfo(this)
+    │       └── Executor::computeInfo(expr)
+    │           └── SizeComputer::computeOutputSize(op, inputs, outputs)
+    │               # 进入算子 shape 推导注册表，写回 Expr 输出 Tensor 的形状信息
+    │
+    ├── [当前 Expr 没有 cache] ExecutorScope::Current()->makeCache({mFrom}, forShape)
+    │   # 第一次真正求值时才会把 Expr 子图收敛成可执行缓存
+    │   └── Executor::makeCache(outputs, forceCPU)
+    │       └── Executor::_makeCache(outputs, forceCPU)
+    │           ├── 从目标 Expr 反向 DFS 收集依赖
+    │           │   # 只收集本次输出真正依赖的 Expr，已有 cache 的输入会作为边界
+    │           ├── 按依赖顺序生成 Schedule::OpCacheInfo
+    │           │   # 每个 OpCacheInfo 记录一个 Op、它的输入 Tensor 和输出 Tensor
+    │           ├── 填充 Schedule::ScheduleInfo::pipelineInfo
+    │           │   # pipelineInfo 后续会被 Session / Pipeline 用来创建 command
+    │           ├── 记录目标 Expr 的 mCacheOffset / mCache
+    │           │   # mCacheOffset 用于 mapOutput() 时找到目标输出 Tensor
+    │           └── new Session(scheduleInfo, group, runtime)
+    │               └── 保存到 ComputeCache::mSession
+    │                   # ComputeCache 持有临时 Session，后续 resize/run 都靠它
+    │
+    ├── Executor::ComputeCache::compute()
+    │   # cache 已经存在后，从这里开始决定是否 resize、是否重新执行
+    │   ├── DFS 检查依赖的 input cache
+    │   │   # 保证上游 cache 已经完成，输入内容没有脏状态
+    │   ├── [mShapeDirty] ComputeCache::resize()
+    │   │   # shape 脏时先重新 resize；resize 后内容也会变脏
+    │   │   └── ComputeCache::resizeImpl()
+    │   │       ├── Session::setNeedResize()
+    │   │       └── Session::resize()
+    │   │           ├── Pipeline::encode()
+    │   │           │   # 根据 ScheduleInfo 生成 command，并创建算子 Execution
+    │   │           │   └── Backend 创建每个 Op 对应的 Execution
+    │   │           └── Pipeline::allocMemory()
+    │   │               # 为 command 里的 Tensor 分配或复用后端内存
+    │   │               └── 为输入、中间结果和输出 Tensor 分配后端内存
+    │   └── [mContentDirty] Session::run() / Session::runWithCallBack()
+    │       # 内容脏时才真正执行；有 debug callback 时走 runWithCallBack()
+    │       └── Pipeline::execute()
+    │           # 按 command buffer 顺序执行每个算子
+    │           └── cmd.execution->onExecute(...)
+    │               └── 具体 Backend Execution 执行算子
+    │
+    └── Executor::ComputeCache::mapOutput(mCacheOffset + mFromIndex, outputTensor)
+        # 从临时 Session 的输出 Tensor 映射回当前 Variable 持有的 Tensor
+        ├── host Tensor 且无 quantAttr
+        │   # 已经在 CPU host 内存上，可以零拷贝返回指针
+        │   └── 直接返回 tensor->host<void>()
+        └── 设备 Tensor / 量化 Tensor
+            # GPU / NPU 等设备内存或量化 Tensor，需要先复制到 host
+            ├── Utils::allocMemoryForHostTensor(dest)
+            ├── tensor->copyToHostTensor(dest)
+            └── 返回 dest->host<void>()
 ```
-
-所以从接口语义上看，`readMap()` 是“取结果地址”；但从实际执行过程看，它也是 `Express` 图从延迟状态切换到真正求值状态的入口。这也是为什么在 `Defer` 模式下，很多图上的计算直到 `readMap()`、`writeMap()`、`getInfo()` 这类接口被调用时才真正发生。
 
 ### 1.3 Expr类
 
@@ -1138,49 +1140,29 @@ inline const char *EnumNameBinaryOpOperation(BinaryOpOperation e) {
   return EnumNamesBinaryOpOperation()[index];
 }
 ```
-#### 1.5.4 GEMM转卷积算子的理解
-这一节先不从 `MNN` 代码入口讲，而是先把“卷积”和“矩阵乘法”之间的等价关系讲清楚。因为后面看到 `InnerProduct`、`Convolution`、`MatMul` 之间互相改写时，本质上都是在利用同一套线性代数关系。
-
+#### 1.5.4 GEMM转卷积算子
+端侧执行`LLM`时`MNN`框架会把`Linear/MatMul`算子替换成`Conv2d`算子，这一节形式化的描述“卷积”和“矩阵乘法”之间的等价关系。
 #####  1.5.4.1 二维卷积
 
 最常见的二维卷积输入可以写成：
 
-- 输入：`[N, C_in, H, W]`
-- 卷积核：`[C_out, C_in, K_h, K_w]`
-- 输出：`[N, C_out, H_out, W_out]`
+- 输入：$[N, C_{\mathrm{in}}, H, W]$
+- 卷积核：$[C_{\mathrm{out}}, C_{\mathrm{in}}, K_h, K_w]$
+- 输出：$[N, C_{\mathrm{out}}, H_{\mathrm{out}}, W_{\mathrm{out}}]$
 
-对于输出上的某一个位置 `(n, c_out, h, w)`，它的值本质上就是“输入局部窗口”和“卷积核权重”的点积：
+这个四维卷积核有$C_{\mathrm{out}}$个输入通道数为$C_{\mathrm{in}}$大小为$[K_h, K_w]$的二维维积核，每个卷积核的计算就是通常的二维卷积：在$[H,W]$的二维矩阵上把卷积核滑动，每个位置上做输入局部矩阵(大小和卷积核一致)与卷积核的点积，得到一个输出值：
 
-```text
-output[n, c_out, h, w]
-= sum_{c_in, kh, kw}
-  input[n, c_in, h + kh, w + kw] * weight[c_out, c_in, kh, kw]
-```
+ $$Y[h, w] = \sum_{k_h=0}^{K_h-1}\sum_{k_w=0}^{K_w-1} X[h+k_h, w+k_w] \cdot K[k_h, k_w]$$
 
-也就是说，二维卷积虽然写成了四维张量操作，但对单个输出位置来看，本质仍然是一次向量点积。区别只在于这个点积会在所有空间位置上重复滑动执行。
+叠加上输入通道和输出通道的维度后，
 
-#####  1.5.4.2 三维卷积
+$$\mathrm{output}[n, c_{\mathrm{out}}, h, w] = \sum_{c_{\mathrm{in}}, k_h, k_w}\mathrm{input}[n, c_{\mathrm{in}}, h + k_h, w + k_w] \cdot \mathrm{weight}[c_{\mathrm{out}}, c_{\mathrm{in}}, k_h, k_w]$$
 
-三维卷积只是把二维卷积再多加一个深度维度。输入和卷积核通常写成：
+每个输出通道都有自己的一套跨输入通道权重，用它把输入通道混合成一张新的输出特征图。
 
-- 输入：`[N, C_in, D, H, W]`
-- 卷积核：`[C_out, C_in, K_d, K_h, K_w]`
-- 输出：`[N, C_out, D_out, H_out, W_out]`
+#####  1.5.4.2 `im2col`
 
-对应某个输出位置 `(n, c_out, d, h, w)`，计算公式会变成：
-
-```text
-output[n, c_out, d, h, w]
-= sum_{c_in, kd, kh, kw}
-  input[n, c_in, d + kd, h + kh, w + kw] *
-  weight[c_out, c_in, kd, kh, kw]
-```
-
-从这个角度看，三维卷积和二维卷积没有本质区别，都是“取一个局部块，然后和一组权重做点积”；只是局部块的维度从平面窗口变成了体积窗口。
-
-#####  1.5.4.3 `im2col`
-
-卷积虽然可以直接按窗口滑动实现，但工程上更常见的做法是先把输入展开，再把卷积改写成一次大的矩阵乘法，这个展开过程通常就叫 `im2col`。
+卷积直接按窗口滑动实现效率低下，工程上更常见的做法是先把输入展开成二维，再把卷积改写成一次大的矩阵乘法，这个展开过程通常就叫 `im2col`。
 
 以二维卷积为例，`im2col` 的思路是：
 
@@ -1188,79 +1170,47 @@ output[n, c_out, d, h, w]
 2. 把这个局部窗口拉平成一行；
 3. 把所有输出位置对应的局部窗口按行堆起来，形成一个大矩阵。
 
-如果卷积核大小是 `K_h x K_w`，输入通道数是 `C_in`，那么每个局部窗口拉平后长度就是：
+如果卷积核大小是 $K_h \times K_w$，输入通道数是 $C_{\mathrm{in}}$，那么每个局部窗口拉平后长度就是：
 
-```text
-C_in * K_h * K_w
-```
+$$C_{\mathrm{in}} \times K_h \times K_w$$
 
 如果总共有
 
-```text
-H_out * W_out
-```
+$$H_{\mathrm{out}} \times W_{\mathrm{out}}$$
 
 个输出位置，那么 `im2col` 后的输入矩阵可以理解成：
 
-```text
-[H_out * W_out, C_in * K_h * K_w]
-```
+$$\left[H_{\mathrm{out}} \times W_{\mathrm{out}}, C_{\mathrm{in}} \times K_h \times K_w\right]$$
 
 而卷积核本身也可以拉平成另一个矩阵：
 
-```text
-[C_out, C_in * K_h * K_w]
-```
+$$\left[C_{\mathrm{out}}, C_{\mathrm{in}} \times K_h \times K_w\right]$$
 
 这样卷积就被改写成了一个标准的矩阵乘法：
 
-```text
-[H_out * W_out, C_in * K_h * K_w]
-            ×
-[C_in * K_h * K_w, C_out]
-            =
-[H_out * W_out, C_out]
-```
+$$\left[H_{\mathrm{out}} \times W_{\mathrm{out}}, C_{\mathrm{in}} \times K_h \times K_w\right] \times \left[C_{\mathrm{in}} \times K_h \times K_w, C_{\mathrm{out}}\right] = \left[H_{\mathrm{out}} \times W_{\mathrm{out}}, C_{\mathrm{out}}\right]$$
 
-最后再把结果 reshape 回 `[C_out, H_out, W_out]` 即可。
+最后再把结果 reshape 回 $[C_{\mathrm{out}}, H_{\mathrm{out}}, W_{\mathrm{out}}]$ 即可。
 
-#####  1.5.4.4 为什么 `GEMM` 可以等价成卷积
+#####  1.5.4.3 `GEMM`等价成卷积
 
-`GEMM` 一般指通用矩阵乘法，即：
+以 LLM 推理里常见的线性层 $xW$ 为例。设：
 
-```text
-C = A × B
-```
+- $x$ 的维度是 $[\mathrm{bs}, \mathrm{seq}, \mathrm{hidden}]$；
+- $W$ 的维度是 $[\mathrm{hidden}, \mathrm{hidden}]$；
+- 输出 $y$ 的维度仍然是 $[\mathrm{bs}, \mathrm{seq}, \mathrm{hidden}]$。
 
-如果把矩阵乘法写到神经网络里，可以把它理解成“每一行输入向量”和“每一个输出通道权重向量”做一次点积。这和卷积在单个位置上的计算本质是一样的。
+矩阵乘法写成：
 
-最典型的情况是全连接层，也就是 `InnerProduct`：
+$$y = xW$$
 
-- 输入通常先被展平成一维向量；
-- 每个输出神经元对应一组权重；
-- 每个输出值都是输入向量和权重向量的点积。
+展开到单个 batch、token 位置和输出通道：
 
-如果把这个过程改写成卷积，其实就是一个特殊的卷积：
+$$y[b, i, o] = \sum_{d=0}^{\mathrm{hidden}-1} x[b, i, d] \cdot W[d, o]$$
 
-- 当输入已经是 `1 x 1` 的空间尺寸时，它等价于 `1 x 1` 卷积；
-- 当输入先展平成 `C_in * H * W` 的一维向量时，也可以把它看成卷积核覆盖整个输入空间的一次卷积，即 `kernel = [H, W]` 的卷积；
-- 从结果上看，输出通道数就对应全连接层的输出维度。
+这里 $i$ 是 token 位置，$d$ 是输入 hidden 通道，$o$ 是输出 hidden 通道。这个计算对每个 token 位置独立发生，不混合相邻 token。
 
-所以“`GEMM` 等价成卷积”并不是额外发明了一种计算，而是把同样的线性变换换了一种张量组织方式：
-
-- 用矩阵视角看，它是 `A × B`；
-- 用卷积视角看，它是“局部块展开 + 权重点积”；
-- 用实现视角看，它们最后都可以落到同一类高效的 `GEMM` kernel 上。
-
-#####  1.5.4.5 为什么框架里经常互相改写
-
-理解了上面的关系后，再看框架里的算子改写就比较自然了。很多时候并不是“卷积”和“矩阵乘法”各做各的，而是根据后端更擅长的实现方式，在几种等价表示之间切换：
-
-- 卷积可以通过 `im2col + GEMM` 来实现；
-- 全连接可以改写成特殊形式的卷积；
-- 某些 `MatMul` 也可以进一步映射成卷积或卷积风格的 packed kernel。
-
-这样做的主要目的不是改变数学含义，而是复用成熟的底层 kernel、pack 布局和缓存优化逻辑。对推理框架来说，算子“长什么样”不是最重要的，最后能否落到高效稳定的内核实现上才更关键。
+可以想象成有 `bs` 个输入通道数是 `hidden`，空间大小是 $[1, \mathrm{seq}]$的样本，与输入/输出通道数都是 `hidden`二维卷积核大小是 $[1, 1]$的卷积核进行卷积。把算子替换成卷积可以复用底层卷积实现的高效计算，同时也能更好地适配端侧的内存访问模式。
 
 ### 1.6 Pipeline类
 
@@ -1282,7 +1232,7 @@ public:
 };
 ```
 
-这里可以把 `Pipeline` 理解成一次“从调度信息到可执行算子序列”的落地过程。单看注释其实已经很清楚：
+这里可以把 `Pipeline` 理解成一次“从调度信息到可执行算子序列”的落地过程。
 
 ```cpp
 /** encode :
@@ -1293,13 +1243,13 @@ public:
 ErrorCode encode(bool supportDebug = false, bool permitCodegen = false);
 ```
 
-也就是说，`Pipeline` 干的不是“再做一次调度”，而是把调度阶段已经决定好的结果继续往后推进：
+`Pipeline` 干的是把调度阶段已经决定好的结果继续往后推进：
 
 1. 先把 shape 和几何变换补齐；
 2. 再创建每个算子的 `Execution`；
 3. 最后按顺序进入 `execute()`。
 
-如果只看运行链路，它基本处在：
+流程如下：
 
 ```text
 Session::run()
@@ -1309,7 +1259,7 @@ Pipeline::execute()
 Execution::onExecute()
 ```
 
-所以 `Pipeline` 是 `Session` 下面真正把“算子序列”跑起来的那一层。
+这里的 `Pipeline` 是 `Session` 下面去调用“算子序列”执行的层。
 
 ### 1.7 Session类
 
@@ -1345,7 +1295,7 @@ struct ModeGroup {
 };
 ```
 
-而 `source/core/Session.cpp` 里的 `createPipelineBackend()` 会进一步把调度结果落成具体后端：
+在source/core/Session.cpp` 里的 `createPipelineBackend()` 会进一步把调度结果落成具体后端：
 
 ```cpp
 // source/core/Session.cpp
@@ -1366,7 +1316,7 @@ if (iter.first.cache.first->type() == MNN_FORWARD_CPU && (!specialUsage)) {
 - CPU 备份后端负责 shape 计算和不支持算子的兜底；
 - 一个 `Session` 里可以有多个 `Pipeline`，每个 `Pipeline` 共享同一套运行时上下文。
 
-所以 `Session` 不是单纯的数据容器，而是一次推理的完整执行上下文。
+这里的`Session` 不是单纯的数据容器，而是一次推理的完整执行上下文。
 
 ### 1.8 Executor & ExecutorScope类
 
@@ -1388,13 +1338,13 @@ public:
 };
 ```
 
-这里三件事分别对应三层职责：
+分别对应三层职责：
 
 - `getRequirement()`：判断一个 `Expr` 的输入到底是“只要 shape”还是“必须读内容”；
 - `computeInfo()`：调用 `SizeComputer::computeOutputSize()` 推导输出张量信息；
 - `makeCache()`：把当前 `Expr` 子图整理成 `ComputeCache`，并在里面构造临时 `Session`。
 
-`express/Executor.cpp` 里的 `computeInfo()` 实现就是这条链路的核心：
+`express/Executor.cpp` 里的 `computeInfo()` 实现是这条链路的核心：
 
 ```cpp
 // express/Executor.cpp
@@ -1410,7 +1360,7 @@ for (int i = 0; i < expr->outputSize(); ++i) {
 }
 ```
 
-而 `_makeCache()` 则更像一次“小型调度器”，它会：
+而 `_makeCache()` 是“小型调度器”，它会：
 
 1. 从输出 `Expr` 逆向遍历依赖；
 2. 收集每个算子的输入输出 `Tensor`；
@@ -1427,9 +1377,9 @@ pipeline.emplace_back(std::move(opInfo));
 cahce->mSession.reset(new Session(std::move(scheduleInfo), group, std::move(rt)));
 ```
 
-所以 `Executor` 在 `Express` 层的作用，不只是“做 shape 推导”，还包括把动态图临时收敛成一次可执行的 `Session`。
+这里的`Executor` 在 `Express` 层的作用包括做 shape 推导和把动态图临时收敛成一次可执行的 `Session`。
 
-`ExecutorScope` 则负责回答另一个问题：**当前这段代码到底应该使用哪个 `Executor`**。
+`ExecutorScope` 则负责解释当前代码到底应该使用哪个 `Executor`。
 
 ```cpp
 // express/ExecutorScope.cpp
@@ -1448,4 +1398,17 @@ const std::shared_ptr<Executor> ExecutorScope::Current() {
 - 作用域结束时自动退出；
 - 如果当前线程没有显式绑定，就回退到全局 `Executor`。
 
-因此，`ExecutorScope` 的作用不是“创建执行器”，而是“决定当前这段代码使用哪个执行器”。这也是 `Express` 模式下能够同时支持全局执行器和局部执行上下文的关键。
+普通使用不需要手动进入 `ExecutorScope`。直接调用 `ExecutorScope::Current()` 时，如果当前线程没有绑定过局部执行器，它会返回全局作用域 `Executor::getGlobalExecutor()`。只有在需要临时切换到某个自定义 `Executor` 时，才需要手动创建一个 `ExecutorScope` 对象：
+
+```cpp
+BackendConfig config;
+auto exe = Executor::newExecutor(MNN_FORWARD_CPU, config, 1);
+{
+    ExecutorScope scope(exe);
+    // 这个作用域内，ExecutorScope::Current() 返回 exe
+    auto y = _Add(x0, x1);
+    y->readMap<float>();
+}
+// 离开作用域后，自动恢复到上一层 Executor；
+// 如果没有上一层，就继续回退到全局 Executor。
+```

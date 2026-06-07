@@ -1,7 +1,7 @@
 ---
 title: "mnn-tutorial"
 date: 2026-02-26T23:00:00+08:00
-lastmod: 2026-05-27T12:00:00+08:00
+lastmod: 2026-06-04T12:00:00+08:00
 draft: false
 description: "MNN端侧推理部署--从环境配置到读懂代码"
 slug: "mnn-tutorial"
@@ -24,7 +24,7 @@ math: true
 |------|------|--------|
 | 环境配置 | 远程调试、交叉编译、设备运行 | 4 篇 |
 | 核心概念 | Backend、工厂模式、核心类 | 3 篇 |
-| MNN-LLM | 配置、加载、推理 | 4 篇 |
+| MNN-LLM | 配置、加载、推理、QNN Plugin | 6 篇 |
 
 ---
 
@@ -47,7 +47,7 @@ math: true
 
 | 文章 | 说明 | 状态 |
 |------|------|------|
-| [核心类介绍](/p/introduce-core-class/) | VARP、Expr、Op 等关键类的设计 | 🚧 WIP |
+| [核心类介绍](/p/introduce-core-class/) | VARP、Expr、Op 等关键类的设计 | ✅ 完成 |
 | [Backend 介绍](/p/introduce-backend/) | CPU/OpenCL/Vulkan 等后端的作用和选择 | ✅ 完成 |
 | [工厂模式介绍](/p/introduce-factory/) | MNN 中工厂模式的设计与应用 | ✅ 完成 |
 
@@ -59,10 +59,12 @@ math: true
 
 | 文章 | 说明 | 状态 |
 |------|------|------|
-| [LLM 配置](/p/llm-config/) | 模型配置、量化配置 | 🚧 WIP |
-| [LLM 加载流程](/p/llm-load/) | 模型文件到推理就绪的完整过程 | 🚧 WIP |
+| [LLM 配置](/p/llm-config/) | 模型配置、量化配置 | ✅ 完成 |
+| [LLM 加载流程](/p/llm-load/) | 模型文件到推理就绪的完整过程 | ✅ 完成 |
 | [LLM 推理流程](/p/llm-infer/) | Token 处理、KV Cache 管理 | 🚧 WIP |
-| [Eagle 推理流程](/p/llm-eagle-infer/) | speculative decoding 中 Eagle 路径的 draft、验证与 KV 回写 | 🚧 WIP |
+| [Eagle 推理流程](/p/llm-eagle-infer/) | speculative decoding 中 Eagle 路径的 draft、验证与 KV 回写 | ✅ 完成|
+| [LLM QNN 离线导出流程](/p/llm-qnn-export/) | `generate_llm_qnn.py`、`compilefornpu` 和 QNN context binary 生成链路 | ✅ 完成 |
+| [LLM QNN Plugin 推理流程](/p/llm-qnn-plugin-infer/) | `Plugin(type="QNN")` 从 shape 匹配到 `graphExecute()` 的运行时路径 | ✅ 完成 |
 
 ---
 
