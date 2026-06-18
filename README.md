@@ -1,7 +1,7 @@
 ---
 title: "mnn-tutorial"
 date: 2026-02-26T23:00:00+08:00
-lastmod: 2026-06-04T12:00:00+08:00
+lastmod: 2026-06-16T12:00:00+08:00
 draft: true
 description: "MNN端侧推理部署--从环境配置到读懂代码"
 slug: "mnn-tutorial"
@@ -20,8 +20,8 @@ comments: true
 | 阶段 | 内容 | 文章数 |
 |------|------|--------|
 | 环境配置 | 远程调试、交叉编译、设备运行 | 4 篇 |
-| 核心概念 | Backend、工厂模式、核心类 | 3 篇 |
-| MNN-LLM | 配置、加载、推理、QNN Plugin | 6 篇 |
+| 核心概念 | Backend、工厂模式、核心类、BackendConfig 分支 | 4 篇 |
+| MNN-LLM | 配置、加载、推理、QNN Plugin | 7 篇 |
 
 ---
 
@@ -47,6 +47,7 @@ comments: true
 | [核心类介绍](blog/introduce-core-class/index.md) | VARP、Expr、Op 等关键类的设计 | ✅ 完成 |
 | [Backend 介绍](blog/introduce-backend/index.md) | CPU/OpenCL/Vulkan 等后端的作用和选择 | ✅ 完成 |
 | [工厂模式介绍](blog/introduce-factory/index.md) | MNN 中工厂模式的设计与应用 | ✅ 完成 |
+| [BackendConfig 分支路径](blog/backend-config-branch/index.md) | 对照源码梳理 `precision`、`memory`、`power` 各取值的执行分支 | ✅ 完成 |
 
 ---
 
@@ -61,6 +62,7 @@ comments: true
 | [LLM 推理流程](blog/llm-infer/index.md) | Token 处理、KV Cache 管理 | 🚧 WIP |
 | [Eagle 推理流程](blog/llm-eagle-infer/index.md) | speculative decoding 中 Eagle 路径的 draft、验证与 KV 回写 | ✅ 完成 |
 | [LLM QNN 离线导出流程](blog/llm-qnn-export/index.md) | `generate_llm_qnn.py`、`compilefornpu` 和 QNN context binary 生成链路 | ✅ 完成 |
+| [LLM Sampler 采样逻辑](blog/llm-sampler/index.md) | `Sampler` 从 logits 到下一个 token 的过滤和选择流程 | ✅ 完成 |
 | [LLM QNN Plugin 推理流程](blog/llm-qnn-plugin-infer/index.md) | `Plugin(type="QNN")` 从 shape 匹配到 `graphExecute()` 的运行时路径 | ✅ 完成 |
 
 ---

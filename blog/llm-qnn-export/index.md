@@ -12,33 +12,32 @@ comments: true
 math: true
 ---
 
-# LLM QNN 离线导出流程
-- [LLM QNN 离线导出流程](#llm-qnn-离线导出流程)
-  - [1. 入口参数](#1-入口参数)
-  - [2. Step1：生成 IO 样本](#2-step1生成-io-样本)
-  - [3. Step2：切图](#3-step2切图)
-    - [3.1 QNN 离线模式](#31-qnn-离线模式)
-    - [3.2 读取 testdir](#32-读取-testdir)
-    - [3.3 生成候选子图列表](#33-生成候选子图列表)
-      - [3.3.1 反向收集 op](#331-反向收集-op)
-      - [3.3.2 按 break op 切图](#332-按-break-op-切图)
-      - [3.3.3 补切动态 shape](#333-补切动态-shape)
-      - [3.3.4 计算子图边界](#334-计算子图边界)
-    - [3.4 过滤非卷积子图](#34-过滤非卷积子图)
-    - [3.5 收集子图 IO](#35-收集子图-io)
-    - [3.6 编译并替换 Plugin](#36-编译并替换-plugin)
-    - [3.7 onForward 生成 graph 材料](#37-onforward-生成-graph-材料)
-    - [3.8 合并多 shape](#38-合并多-shape)
-    - [3.9 产物](#39-产物)
-  - [4. npu\_postreat.json 的作用](#4-npu_postreatjson-的作用)
-  - [5. Step3：生成 context binary](#5-step3生成-context-binary)
-    - [5.1 读取后处理配置](#51-读取后处理配置)
-    - [5.2 写 QNN context 配置](#52-写-qnn-context-配置)
-    - [5.3 生成每个 graph 的 model library](#53-生成每个-graph-的-model-library)
-    - [5.4 合成 context binary](#54-合成-context-binary)
-    - [5.5 运行时使用 binary](#55-运行时使用-binary)
-  - [6. Step4：移动产物并写 config\_qnn.json](#6-step4移动产物并写-config_qnnjson)
-  - [7. 最终目录结构](#7-最终目录结构)
+****# LLM QNN 离线导出流程
+- [1. 入口参数](#1-入口参数)
+- [2. Step1：生成 IO 样本](#2-step1生成-io-样本)
+- [3. Step2：切图](#3-step2切图)
+  - [3.1 QNN 离线模式](#31-qnn-离线模式)
+  - [3.2 读取 testdir](#32-读取-testdir)
+  - [3.3 生成候选子图列表](#33-生成候选子图列表)
+    - [3.3.1 反向收集 op](#331-反向收集-op)
+    - [3.3.2 按 break op 切图](#332-按-break-op-切图)
+    - [3.3.3 补切动态 shape](#333-补切动态-shape)
+    - [3.3.4 计算子图边界](#334-计算子图边界)
+  - [3.4 过滤非卷积子图](#34-过滤非卷积子图)
+  - [3.5 收集子图 IO](#35-收集子图-io)
+  - [3.6 编译并替换 Plugin](#36-编译并替换-plugin)
+  - [3.7 onForward 生成 graph 材料](#37-onforward-生成-graph-材料)
+  - [3.8 合并多 shape](#38-合并多-shape)
+  - [3.9 产物](#39-产物)
+- [4. npu\_postreat.json 的作用](#4-npu_postreatjson-的作用)
+- [5. Step3：生成 context binary](#5-step3生成-context-binary)
+  - [5.1 读取后处理配置](#51-读取后处理配置)
+  - [5.2 写 QNN context 配置](#52-写-qnn-context-配置)
+  - [5.3 生成每个 graph 的 model library](#53-生成每个-graph-的-model-library)
+  - [5.4 合成 context binary](#54-合成-context-binary)
+  - [5.5 运行时使用 binary](#55-运行时使用-binary)
+- [6. Step4：移动产物并写 config\_qnn.json](#6-step4移动产物并写-config_qnnjson)
+- [7. 最终目录结构](#7-最终目录结构)
 
 本文记录 `transformers/llm/export/npu/generate_llm_qnn.py` 将 MNN 格式模型导出到 QNN 后端的链路。主要把 `llm.mnn` / `llm.mnn.weight` 文件转成 QNN 运行需要的两类产物：
 
@@ -125,10 +124,12 @@ def makeIO(args):
   <model_dir> \
   tmp/testdir \
   <chunk_size>
-# 如果没有 tmp/testdir 目录，可能需要手动创建
+# generate_llm_qnn.py 会先创建 tmp；generateLlmIO 会创建 tmp/testdir 和子目录
 ```
 
 这里 `<model_dir>` 是整个 MNN LLM 模型目录，不是单独的 `llm.mnn` 文件。`llm_config.json`、`llm.mnn`、`llm.mnn.weight` 等文件会由 `generateLlmIO` 在模型目录内部继续读取。
+
+当前导出脚本会先通过 `os.makedirs(cache, exist_ok=True)` 创建 `tmp`。随后 `generateLlmIO` 内部会调用 `MNNCreateDir(outputDir)` 创建 `tmp/testdir`，再创建 `tmp/testdir/<chunk_size>` 和 `tmp/testdir/1`。如果单独手动运行 `generateLlmIO`，需要保证父目录 `tmp` 已经存在，因为这里的 `MNNCreateDir(...)` 不是递归创建目录。
 
 `generate_llm_qnn.py` 只关心两个后续会被 `compilefornpu` 读取的样本目录：
 
@@ -1416,7 +1417,6 @@ tmp/
 │       └── *.raw
 └── npu_postreat.json           # Step3 合成 context binary 的 merge 配置
 ```
-
 ## 4. npu_postreat.json 的作用
 
 `compilefornpu` 还会写 `npu_postreat.json`，里面最重要的是 `merge`：
@@ -1579,6 +1579,17 @@ htp_backend_extensions = {
 
 ### 5.3 生成每个 graph 的 model library
 
+这里直接消费 Step2 落到 `tmp/qnn/graph*/` 下的文件。以 `tmp/qnn/graph0/` 为例，Step3 不是重新读取原始 `llm.mnn` 做切图，而是把这个目录当作一个 QNN graph 的编译工作目录：
+
+| 文件 | 来源 | Step3 中的用途 |
+|------|------|----------------|
+| `graph0.cpp` | Step2 的 QNN convert backend 生成 | 作为 `qnn-model-lib-generator -c` 的输入，里面是创建 tensor、node、graph 的 QNN C++ 源码 |
+| `*.raw` | Step2 记录 static tensor 时 dump 出来 | 先在同目录打包成 `graph0.bin`，再作为 `qnn-model-lib-generator -b` 的输入 |
+| `graph0.bin` | Step3 临时打包生成 | 只是 model library 编译阶段使用的 raw 数据包，不是最终运行时加载的 context binary |
+| `x86_64-linux-clang/libgraph0.so` | Step3 编译生成 | 作为 `qnn-context-binary-generator --model` 的输入 |
+
+这里容易混淆的是两个 `.bin`。`tmp/qnn/graph0/graph0.bin` 是 Step3 临时生成的 raw 打包文件；`tmp/qnn/graph0.bin` 才是最终给 Plugin attr `path = qnn/graph0.bin` 使用的 QNN context binary。前者位于 graph 源目录内部，后者位于 `qnn/` 目录下。
+
 接下来脚本遍历 `post_treat["merge"]`。每个 `key` 对应一个最终 `.bin`，每个 `src` 对应一个 graph 源目录：
 
 ```python
@@ -1699,6 +1710,24 @@ tmp/qnn/graph0.bin
 
 这就是 Plugin attr 里的 `path: qnn/graph0.bin` 对应的文件。
 
+Step3 结束后，`npu_convert.py` 会按 `clean_tmp = True` 清掉 `tmp/qnn/graph*/` 这些 graph 源目录。`context_config.json`、`htp_backend_extensions.json`、`qnn.json`、`npu_postreat.json` 和 `testdir/` 会继续留在 `tmp` 根目录，直到 Step4 最后 `shutil.rmtree(args.cache_path)` 删除整个临时目录。
+
+此时 `tmp` 大致是：
+
+```text
+tmp/
+├── testdir/
+│   ├── 1/
+│   └── <chunk_size>/
+├── qnn.json
+├── npu_postreat.json
+├── context_config.json
+├── htp_backend_extensions.json
+└── qnn/
+    ├── llm.mnn
+    └── graph*.bin
+```
+
 ### 5.5 运行时使用 binary
 
 运行时 QNN Plugin 初始化时，会从 Plugin attr 里读 `path` 和 `allGraphName`，然后调用 `RawExecutorWrapper::compileModel(...)`：
@@ -1817,7 +1846,6 @@ Qwen3-1.7B-MNN/
 ├── llm.mnn.weight
 └── qnn/
     ├── llm.mnn
-    ├── graph0.bin
     └── graph*.bin
 ```
 
