@@ -21,7 +21,7 @@ comments: true
 |------|------|--------|
 | 环境配置 | 远程调试、交叉编译、设备运行 | 4 篇 |
 | 核心概念 | Backend、工厂模式、核心类、BackendConfig 分支 | 4 篇 |
-| MNN-LLM | 配置、加载、推理、QNN Plugin | 7 篇 |
+| MNN-LLM | 配置、加载、推理、导出、QNN Plugin | 8 篇 |
 
 ---
 
@@ -61,6 +61,7 @@ comments: true
 | [LLM 加载流程](blog/llm-load/index.md) | 模型文件到推理就绪的完整过程 | ✅ 完成 |
 | [LLM 推理流程](blog/llm-infer/index.md) | Token 处理、KV Cache 管理 | 🚧 WIP |
 | [Eagle 推理流程](blog/llm-eagle-infer/index.md) | speculative decoding 中 Eagle 路径的 draft、验证与 KV 回写 | ✅ 完成 |
+| [Qwen3 Eagle3 MNN 导出流程](blog/qwen3-eagle3-mnn-export/index.md) | 对照 `llmexport.py` 梳理 Qwen3-1.7B + Eagle3 导出为 MNN 的代码路径 | ✅ 完成 |
 | [LLM QNN 离线导出流程](blog/llm-qnn-export/index.md) | `generate_llm_qnn.py`、`compilefornpu` 和 QNN context binary 生成链路 | ✅ 完成 |
 | [LLM Sampler 采样逻辑](blog/llm-sampler/index.md) | `Sampler` 从 logits 到下一个 token 的过滤和选择流程 | ✅ 完成 |
 | [LLM QNN Plugin 推理流程](blog/llm-qnn-plugin-infer/index.md) | `Plugin(type="QNN")` 从 shape 匹配到 `graphExecute()` 的运行时路径 | ✅ 完成 |
