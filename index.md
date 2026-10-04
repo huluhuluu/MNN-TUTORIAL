@@ -34,10 +34,10 @@ math: true
 
 | 文章 | 说明 | 状态 |
 |------|------|------|
-| [远程ADB环境配置](/p/remote-adb/) | 通过端口转发链路，让内网服务器直连本地手机 | ✅ 完成 |
-| [交叉编译环境配置](/p/cross-compiler/) | Android NDK 配置、Clangd 配置、远程调试 | ✅ 完成 |
-| [llm_demo 交叉编译与运行](/p/llm-demo-run/) | 以 `llm_demo` 为例，记录从编译到设备运行的最短路径 | ✅ 完成 |
-| [llm_demo 在 QNN 后端的运行](/p/llm-demo-qnn-run/) | 记录 `llm_demo` 通过 `config_qnn.json` 和 QNN 产物在 Android 设备上运行 | ✅ 完成 |
+| [远程ADB环境配置](blog/remote-adb/index.md) | 通过端口转发链路，让内网服务器直连本地手机 | ✅ 完成 |
+| [交叉编译环境配置](blog/cross-compiler/index.md) | Android NDK 配置、Clangd 配置、远程调试 | ✅ 完成 |
+| [llm_demo 交叉编译与运行](blog/llm-demo-run/index.md) | 以 `llm_demo` 为例，记录从编译到设备运行的最短路径 | ✅ 完成 |
+| [llm_demo 在 QNN 后端的运行](blog/llm-demo-qnn-run/index.md) | 记录 `llm_demo` 通过 `config_qnn.json` 和 QNN 产物在 Android 设备上运行 | ✅ 完成 |
 
 ---
 
@@ -47,10 +47,10 @@ math: true
 
 | 文章 | 说明 | 状态 |
 |------|------|------|
-| [核心类介绍](/p/introduce-core-class/) | VARP、Expr、Op 等关键类的设计 | ✅ 完成 |
-| [Backend 介绍](/p/introduce-backend/) | CPU/OpenCL/Vulkan 等后端的作用和选择 | ✅ 完成 |
-| [工厂模式介绍](/p/introduce-factory/) | MNN 中工厂模式的设计与应用 | ✅ 完成 |
-| [BackendConfig 分支路径](/p/backend-config-branch/) | 对照源码梳理 `precision`、`memory`、`power` 各取值的执行分支 | ✅ 完成 |
+| [核心类介绍](blog/introduce-core-class/index.md) | VARP、Expr、Op 等关键类的设计 | ✅ 完成 |
+| [Backend 介绍](blog/introduce-backend/index.md) | CPU/OpenCL/Vulkan 等后端的作用和选择 | ✅ 完成 |
+| [工厂模式介绍](blog/introduce-factory/index.md) | MNN 中工厂模式的设计与应用 | ✅ 完成 |
+| [BackendConfig 分支路径](blog/backend-config-branch/index.md) | 对照源码梳理 `precision`、`memory`、`power` 各取值的执行分支 | ✅ 完成 |
 
 ---
 
@@ -60,14 +60,14 @@ math: true
 
 | 文章 | 说明 | 状态 |
 |------|------|------|
-| [LLM 配置](/p/llm-config/) | 模型配置、量化配置 | ✅ 完成 |
-| [LLM 加载流程](/p/llm-load/) | 模型文件到推理就绪的完整过程 | ✅ 完成 |
+| [LLM 配置](blog/llm-config/index.md) | 模型配置、量化配置 | ✅ 完成 |
+| [LLM 加载流程](blog/llm-load/index.md) | 模型文件到推理就绪的完整过程 | ✅ 完成 |
 | [LLM 推理流程](/p/llm-infer/) | Token 处理、KV Cache 管理 | 🚧 WIP |
-| [Eagle 推理流程](/p/llm-eagle-infer/) | speculative decoding 中 Eagle 路径的 draft、验证与 KV 回写 | ✅ 完成|
-| [Qwen3 Eagle3 MNN 导出流程](/p/qwen3-eagle3-mnn-export/) | 对照 `llmexport.py` 梳理 Qwen3-1.7B + Eagle3 导出为 MNN 的代码路径 | ✅ 完成 |
-| [LLM QNN 离线导出流程](/p/llm-qnn-export/) | `generate_llm_qnn.py`、`compilefornpu` 和 QNN context binary 生成链路 | ✅ 完成 |
-| [LLM Sampler 采样逻辑](/p/llm-sampler/) | `Sampler` 从 logits 到下一个 token 的过滤和选择流程 | ✅ 完成 |
-| [LLM QNN Plugin 推理流程](/p/llm-qnn-plugin-infer/) | `Plugin(type="QNN")` 从 shape 匹配到 `graphExecute()` 的运行时路径 | ✅ 完成 |
+| [Eagle 推理流程](blog/llm-eagle-infer/index.md) | speculative decoding 中 Eagle 路径的 draft、验证与 KV 回写 | ✅ 完成|
+| [Qwen3 Eagle3 MNN 导出流程](blog/qwen3-eagle3-mnn-export/index.md) | 对照 `llmexport.py` 梳理 Qwen3-1.7B + Eagle3 导出为 MNN 的代码路径 | ✅ 完成 |
+| [LLM QNN 离线导出流程](blog/llm-qnn-export/index.md) | `generate_llm_qnn.py`、`compilefornpu` 和 QNN context binary 生成链路 | ✅ 完成 |
+| [LLM Sampler 采样逻辑](blog/llm-sampler/index.md) | `Sampler` 从 logits 到下一个 token 的过滤和选择流程 | ✅ 完成 |
+| [LLM QNN Plugin 推理流程](blog/llm-qnn-plugin-infer/index.md) | `Plugin(type="QNN")` 从 shape 匹配到 `graphExecute()` 的运行时路径 | ✅ 完成 |
 
 ---
 
